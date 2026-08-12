@@ -1,0 +1,5 @@
+Class,Precision,Recall,Specificity,F1
+Diabetes mellitus,1.0,1.0,1.0,1.0
+Malaria,1.0,1.0,1.0,1.0
+Pneumonia,1.0,1.0,1.0,1.0
+Typhoid fever,1.0,1.0,1.0,1.0
