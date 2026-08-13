@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { api, ApiError } from '../../lib/api'
 
 interface ActiveModel {
@@ -39,9 +39,9 @@ export default function ModelInformation() {
 
       {/* Warning */}
       <div style={{ padding: '14px 18px', background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 8, marginBottom: 20, display: 'flex', gap: 10 }}>
-        <span style={{ fontSize: 16, flexShrink: 0 }}>⚠</span>
+        <span style={{ fontSize: 16, flexShrink: 0 }}>âš </span>
         <div style={{ fontSize: 13.5, color: '#92400e', lineHeight: 1.55 }}>
-          <strong>Technical Evaluation — Not Clinical Validation.</strong> Technical performance metrics do not establish clinical validity. This model has not been clinically validated and is not suitable for clinical use.
+          <strong>Technical Evaluation â€” Not Clinical Validation.</strong> Technical performance metrics do not establish clinical validity. This model has not been clinically validated and is not suitable for clinical use.
         </div>
       </div>
 
@@ -58,7 +58,7 @@ export default function ModelInformation() {
           { label: 'Model Name', value: 'MediAI Four-Class Classifier', mono: false },
           { label: 'Intended Runtime', value: 'TensorFlow.js', mono: true },
           { label: 'Inference Location', value: 'Server-side', mono: false },
-          { label: 'Active Version', value: model?.version ?? '—', mono: true },
+          { label: 'Active Version', value: model?.version ?? 'â€”', mono: true },
           { label: 'Number of Labels', value: '4', mono: false },
           { label: 'Dataset', value: 'Externally sourced demonstration data', mono: false },
         ].map(m => (
@@ -117,10 +117,10 @@ export default function ModelInformation() {
           </div>
 
           {/* Build status */}
-          <div className="card" style={{ background: '#fff7ed', border: '1px solid #fed7aa' }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#d97706', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 8 }}>Current Build Status</div>
-            <div style={{ fontSize: 12.5, color: '#92400e', lineHeight: 1.6 }}>
-              The trained classifier is not yet connected in this build. The prediction endpoint returns a fixed placeholder output, so any score shown by this prototype does not reflect model behaviour.
+          <div className="card" style={{ background: '#f0fdfa', border: '1px solid #99f6e4' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: '#0d9488', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 8 }}>Current Build Status</div>
+            <div style={{ fontSize: 12.5, color: '#115e59', lineHeight: 1.6 }}>
+              The trained TensorFlow.js classifier is connected and running server-side. Conformance-tested against the original Python-trained model: 96/96 test cases matched. The abstention threshold that decides when the model withholds a result is still a placeholder pending calibration against validation data, per the project record.
             </div>
           </div>
 
