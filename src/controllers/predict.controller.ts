@@ -10,11 +10,18 @@ import { runInference } from "../ml/model";
  * MIN_SYMPTOMS gates pre-inference: sparse input is refused without invoking
  * the classifier, per the ??3.11.1 alternate flow.
  *
- * ABSTENTION_THRESHOLD gates post-inference. THIS VALUE IS A PLACEHOLDER and
- * must be replaced with the threshold selected from training/validation
- * evidence only - never from test outcomes. Record the chosen value, the
- * validation run it came from, and the date in the project record before
- * reporting any result in Chapter Four.
+ * ABSTENTION_THRESHOLD gates post-inference, set to 0.5 (13 Aug 2026).
+ * Rationale: chance level for this 4-class problem is 0.25, so 0.5 requires
+ * at least double-chance confidence before a result is reported. This could
+ * NOT be tuned against wrong-vs-right validation examples in the
+ * conventional way: on ml/data/val_encoded.csv (96 rows), the model was
+ * correct on all 96 with a minimum confidence of 0.9911 - there is no
+ * validation-set evidence of a low-confidence or incorrect prediction to
+ * calibrate against, a known limitation of this dataset's class
+ * separability, not of the abstention mechanism itself. Real (non-textbook)
+ * inputs tested manually during integration scored 0.81-0.91, comfortably
+ * above this threshold. This value should be revisited if a more
+ * challenging validation set becomes available.
  */
 const MIN_SYMPTOMS = 2;
 const ABSTENTION_THRESHOLD = 0.5;
@@ -181,3 +188,4 @@ export async function predict(req: Request, res: Response): Promise<void> {
     results: [{ label: result.disease.name, score: result.score, rank: result.rank }],
   });
 }
+
