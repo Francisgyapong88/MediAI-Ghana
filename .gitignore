@@ -151,3 +151,5 @@ ml/.ipynb_checkpoints/
 ml/data/raw/
 ml/*.h5
 ml/*.keras
+ml/venv_convert/
+ml/tfjs_test/node_modules/
