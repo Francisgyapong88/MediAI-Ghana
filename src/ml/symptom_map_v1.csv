@@ -1,0 +1,36 @@
+source_feature,application_term,enabled,in_4disease_scope
+abdominal_pain,Abdominal Pain,True,True
+belly_pain,Belly Pain,True,True
+blurred_and_distorted_vision,Blurred And Distorted Vision,True,True
+breathlessness,Breathlessness,True,True
+chest_pain,Chest Pain,True,True
+chills,Chills,True,True
+constipation,Constipation,True,True
+cough,Cough,True,True
+dehydration,"Excessive Thirst (loose proxy, caveat noted)",False,False
+diarrhoea,Diarrhoea,True,True
+excessive_hunger,Excessive Hunger,True,True
+fast_heart_rate,Fast Heart Rate,True,True
+fatigue,Fatigue,True,True
+headache,Headache,True,True
+high_fever,High Fever,True,True
+increased_appetite,Increased Appetite,True,True
+irregular_sugar_level,Irregular Sugar Level,True,True
+joint_pain,Joint Pain,False,False
+lethargy,Lethargy,True,True
+loss_of_appetite,Loss of Appetite,False,False
+malaise,Malaise,True,True
+muscle_pain,Muscle Pain,True,True
+muscle_weakness,Body Weakness,False,False
+nausea,Nausea,True,True
+obesity,Obesity,True,True
+phlegm,Phlegm,True,True
+polyuria,Polyuria,True,True
+restlessness,Restlessness,True,True
+runny_nose,Runny Nose,False,False
+rusty_sputum,Rusty Sputum,True,True
+sweating,Sweating,True,True
+throat_irritation,Sore Throat,False,False
+toxic_look_(typhos),Toxic Look (Typhos),True,True
+vomiting,Vomiting,True,True
+weight_loss,Weight Loss,True,True

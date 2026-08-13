@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  LOCKED
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  OTHER
+}
+
+// Status of a prediction session — bounded result or explicit abstention,
+// never a forced label (Chapter Three FR-05).
+enum SessionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  INSUFFICIENT_INFORMATION
+  OUT_OF_SCOPE
+  UNKNOWN
+}
+
+// ---------------------------------------------------------------------------
+// Roles & permissions (Table 3.6: "roles / role_permissions" — server-enforced
+// permission definitions, not just an enum baked into application code)
+// ---------------------------------------------------------------------------
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(50) // ADMIN | EVALUATOR | SUPERVISOR_AUDITOR
+
+  users           User[]
+  rolePermissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          Int     @id @default(autoincrement())
+  key         String  @unique @db.VarChar(100) // e.g. "MANAGE_USERS", "VIEW_AUDIT_LOG"
+  description String? @db.Text
+
+  rolePermissions RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       Int @map("role_id")
+  permissionId Int @map("permission_id")
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+// ---------------------------------------------------------------------------
+// Users
+// ---------------------------------------------------------------------------
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique @db.VarChar(100)
+  passwordHash String     @map("password_hash") @db.VarChar(255)
+  roleId       Int        @map("role_id")
+  status       UserStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  role       Role         @relation(fields: [roleId], references: [id])
+  patients   Patient[]
+  auditLogs  AuditLog[]
+
+  @@map("users")
+}
+
+// ---------------------------------------------------------------------------
+// Synthetic patients & visits (Table 3.6: "patients", "patient_visits")
+// ---------------------------------------------------------------------------
+
+model Patient {
+  id          Int     @id @default(autoincrement())
+  createdBy   Int     @map("created_by")
+  age         Int
+  sex         Sex
+  isSynthetic Boolean @default(true) @map("is_synthetic") // always true — enforced at the app layer too
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  creator User          @relation(fields: [createdBy], references: [id])
+  visits  PatientVisit[]
+
+  @@index([createdBy])
+  @@map("patients")
+}
+
+model PatientVisit {
+  id        Int      @id @default(autoincrement())
+  patientId Int      @map("patient_id")
+  visitDate DateTime @default(now()) @map("visit_date")
+  notes     String?  @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  patient     Patient      @relation(fields: [patientId], references: [id])
+  assessments Assessment[]
+
+  @@index([patientId])
+  @@map("patient_visits")
+}
+
+// ---------------------------------------------------------------------------
+// Assessments, symptoms, diseases (Table 3.6: "assessments", "symptoms /
+// assessment_symptoms")
+// ---------------------------------------------------------------------------
+
+model Assessment {
+  id        Int @id @default(autoincrement())
+  visitId   Int @map("visit_id")
+  createdBy Int @map("created_by") // denormalized for fast ownership checks
+
+  // Selected vital signs (FR-03). Blood pressure is deliberately excluded —
+  // that classification path stays behind the disabled feature gate per
+  // Chapter Three §3.3.3 until a clinical adviser approves a specification.
+  temperatureC     Float? @map("temperature_c")
+  heartRate        Int?   @map("heart_rate")
+  respiratoryRate  Int?   @map("respiratory_rate")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  visit               PatientVisit         @relation(fields: [visitId], references: [id])
+  assessmentSymptoms  AssessmentSymptom[]
+  predictionSessions  PredictionSession[]
+
+  @@index([visitId])
+  @@index([createdBy])
+  @@map("assessments")
+}
+
+model Symptom {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique @db.VarChar(100)
+  isEnabled Boolean @default(true) @map("is_enabled")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  assessmentSymptoms AssessmentSymptom[]
+  diseaseSymptoms    DiseaseSymptom[]
+
+  @@map("symptoms")
+}
+
+model AssessmentSymptom {
+  assessmentId Int @map("assessment_id")
+  symptomId    Int @map("symptom_id")
+
+  assessment Assessment @relation(fields: [assessmentId], references: [id])
+  symptom    Symptom    @relation(fields: [symptomId], references: [id])
+
+  @@id([assessmentId, symptomId])
+  @@map("assessment_symptoms")
+}
+
+// The four in-scope labels only (Chapter Three §3.3.3): malaria, typhoid
+// fever, pneumonia, diabetes mellitus.
+model Disease {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(100)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  diseaseSymptoms   DiseaseSymptom[]
+  predictionResults PredictionResult[]
+
+  @@map("diseases")
+}
+
+model DiseaseSymptom {
+  diseaseId Int @map("disease_id")
+  symptomId Int @map("symptom_id")
+
+  disease Disease @relation(fields: [diseaseId], references: [id])
+  symptom Symptom @relation(fields: [symptomId], references: [id])
+
+  @@id([diseaseId, symptomId])
+  @@map("disease_symptoms")
+}
+
+// ---------------------------------------------------------------------------
+// Frozen versioned artefacts (Table 3.6: "ai_models", "symptom_maps")
+// ---------------------------------------------------------------------------
+
+model AiModel {
+  id          Int     @id @default(autoincrement())
+  version     String  @unique @db.VarChar(50)
+  hash        String? @db.VarChar(128) // SHA-256 of the exported artefact
+  description String? @db.Text
+  isActive    Boolean @default(false) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  predictionSessions PredictionSession[]
+
+  @@map("ai_models")
+}
+
+model SymptomMap {
+  id          Int     @id @default(autoincrement())
+  version     String  @unique @db.VarChar(50)
+  hash        String? @db.VarChar(128)
+  description String? @db.Text
+  isActive    Boolean @default(false) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  predictionSessions PredictionSession[]
+
+  @@map("symptom_maps")
+}
+
+// ---------------------------------------------------------------------------
+// Prediction sessions & results (Table 3.6: "prediction_sessions",
+// "prediction_results")
+// ---------------------------------------------------------------------------
+
+model PredictionSession {
+  id           Int           @id @default(autoincrement())
+  assessmentId Int           @map("assessment_id")
+  modelId      Int           @map("model_id")
+  mapId        Int           @map("map_id")
+  status       SessionStatus @default(PENDING)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  assessment Assessment         @relation(fields: [assessmentId], references: [id])
+  model      AiModel            @relation(fields: [modelId], references: [id])
+  map        SymptomMap         @relation(fields: [mapId], references: [id])
+  results    PredictionResult[]
+
+  @@index([assessmentId])
+  @@index([modelId])
+  @@index([mapId])
+  @@map("prediction_sessions")
+}
+
+model PredictionResult {
+  id        Int   @id @default(autoincrement())
+  sessionId Int   @map("session_id")
+  diseaseId Int   @map("disease_id")
+  score     Float // model score — NOT a clinical probability (Chapter Three §3.16.3)
+  rank      Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  session PredictionSession @relation(fields: [sessionId], references: [id])
+  disease Disease           @relation(fields: [diseaseId], references: [id])
+
+  @@index([sessionId])
+  @@index([diseaseId])
+  @@map("prediction_results")
+}
+
+// ---------------------------------------------------------------------------
+// Audit log
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  userId     Int?     @map("user_id")
+  action     String   @db.VarChar(100)
+  resource   String?  @db.VarChar(100)
+  resourceId String?  @map("resource_id") @db.VarChar(100)
+  outcome    String   @db.VarChar(50)
+  timestamp  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([timestamp])
+  @@map("audit_logs")
+}
