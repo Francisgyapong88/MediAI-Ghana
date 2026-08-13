@@ -1,0 +1,1746 @@
+CREATE A COMPLETELY NEW, PROFESSIONAL, HIGH-END WEB APPLICATION DESIGN FOR:
+
+MEDiAI GHANA
+
+Subtitle:
+“Non-Diagnostic Clinical Decision-Support Prototype”
+
+IMPORTANT:
+This is NOT a generic healthcare website.
+
+Design the interface specifically from the requirements, scope, architecture, safety boundaries, roles, workflow, and technical evaluation framework described below.
+
+The application is an undergraduate proof-of-concept called MediAI Ghana. It demonstrates a web-based clinical decision-support workflow using synthetic symptom records and a restricted four-condition machine-learning classifier.
+
+The design must look like a serious professional health-tech / clinical software platform suitable for a university final-year project demonstration.
+
+It must NOT look like:
+- A hospital management system
+- A patient portal
+- A medical booking platform
+- A consumer symptom checker
+- An autonomous AI doctor
+- A generic AI chatbot
+- A pharmaceutical website
+
+It should look like:
+- A secure clinical decision-support research platform
+- A professional health-tech SaaS application
+- A technical AI evaluation platform
+- A controlled clinical software prototype
+- A Ghana-focused academic technology project
+
+==================================================
+1. PROJECT IDENTITY
+==================================================
+
+Brand:
+
+MediAI Ghana
+
+Full description:
+
+“Non-Diagnostic Clinical Decision-Support Prototype”
+
+Primary tagline:
+
+“Technical Decision Support. Human Judgement First.”
+
+Alternative supporting statement:
+
+“Structured symptom capture, bounded machine-learning classification and transparent technical evaluation.”
+
+Always communicate that this is a RESEARCH / ACADEMIC PROTOTYPE.
+
+Prominent wording:
+
+“Research Prototype — Not for Clinical Diagnosis”
+
+The system does NOT:
+- Diagnose diseases
+- Confirm diseases
+- Exclude diseases
+- Prescribe medication
+- Recommend medication dosage
+- Replace professional judgement
+- Provide emergency services
+- Make autonomous referrals
+- Claim clinical effectiveness
+- Claim clinical validity
+- Claim readiness for deployment
+
+==================================================
+2. CORE MODEL SCOPE
+==================================================
+
+The active machine-learning component has exactly FOUR labels:
+
+1. Malaria
+2. Typhoid Fever
+3. Pneumonia
+4. Diabetes Mellitus
+
+These are demonstration labels only.
+
+Do not imply that these are the only diseases encountered in Ghana.
+
+Do not add:
+- Hypertension
+- COVID-19
+- Tuberculosis
+- Asthma
+- HIV
+- Cancer
+- Any other disease
+
+unless it is clearly presented as “outside the current model scope.”
+
+The interface must make the four-label limitation obvious.
+
+Use wording:
+
+“4-label demonstration model”
+
+or
+
+“Four supported model labels”
+
+==================================================
+3. DESIGN LANGUAGE
+==================================================
+
+Create a premium modern clinical technology interface.
+
+Visual style:
+
+- Professional
+- Minimal
+- Sophisticated
+- Trustworthy
+- Modern
+- Technical
+- Clean
+- Data-driven
+- Accessible
+- Academic
+- Ghanaian but internationally professional
+
+Avoid excessive medical imagery.
+
+Do NOT use:
+- Generic doctors shaking hands
+- Hospital stock photos
+- Stethoscope hero images
+- Smiling doctors as the main visual
+- Cartoon medical illustrations
+- Overly futuristic AI robots
+
+Instead use:
+- Abstract medical data visualisation
+- Structured data patterns
+- Subtle neural-network graphics
+- Secure digital infrastructure
+- Clinical workflow diagrams
+- Technical dashboards
+
+==================================================
+4. COLOUR SYSTEM
+==================================================
+
+Primary colour:
+
+Deep Navy / Midnight Blue
+
+Secondary:
+
+Professional Medical Blue
+
+Accent:
+
+Teal
+
+Background:
+
+White / Very Light Blue-Gray
+
+Supporting:
+
+Soft Gray
+
+Use:
+- Green for operational/success states
+- Amber for warnings
+- Red only for critical errors/security failures
+
+Do not make the interface excessively colourful.
+
+Maintain strong contrast and accessibility.
+
+==================================================
+5. TYPOGRAPHY
+==================================================
+
+Use a professional modern font such as:
+
+Inter
+
+or
+
+Manrope
+
+Typography should be:
+- Clean
+- Highly readable
+- Professional
+- Consistent
+
+Use strong hierarchy for:
+- Page titles
+- Section headings
+- Data values
+- Labels
+- Warnings
+- Technical metadata
+
+==================================================
+6. BRAND LOGO
+==================================================
+
+Create a professional MediAI Ghana logo.
+
+Logo concept:
+
+Combine:
+- Healthcare
+- Artificial intelligence
+- Structured data
+- Human oversight
+
+Use an abstract medical symbol combined with a digital/network concept.
+
+Do not copy an existing healthcare logo.
+
+Use subtle Ghanaian influence.
+
+Create:
+- Full logo
+- Compact sidebar logo
+- Mobile logo
+- Favicon-style mark
+
+Brand:
+
+MediAI Ghana
+
+Sub-brand:
+
+Non-Diagnostic Clinical Decision Support
+
+==================================================
+7. APPLICATION ARCHITECTURE
+==================================================
+
+Design a complete multi-page web application.
+
+Pages:
+
+PUBLIC / INFORMATION
+
+1. Landing Page
+2. About MediAI Ghana
+3. Intended Use
+4. System Architecture
+5. Technical Evaluation
+6. Limitations
+7. Safety & Responsible AI
+
+AUTHENTICATION
+
+8. Login
+9. Forgot Password
+10. Reset Password
+11. Session Expired
+
+EVALUATOR
+
+12. Evaluator Dashboard
+13. New Assessment
+14. Synthetic Record
+15. Symptom Selection
+16. Assessment Review
+17. Processing
+18. Technical Result
+19. Insufficient Information
+20. Out of Scope
+21. Assessment History
+22. Assessment Details
+23. Model Information
+24. Symptom Map
+25. Account & Security
+26. System Status
+27. Documentation
+
+SYSTEM ADMINISTRATOR
+
+28. Admin Dashboard
+29. Users & Roles
+30. Model Versions
+31. Symptom Map Versions
+32. System Audit
+33. Retention Configuration
+34. System Configuration
+
+SUPERVISOR / AUDITOR
+
+35. Supervisor Dashboard
+36. Evaluation Evidence
+37. Configuration Review
+38. Version Metadata
+39. Audit Events
+40. Technical Evaluation Results
+
+SYSTEM STATES
+
+41. Loading
+42. Empty
+43. Error
+44. Permission Denied
+45. Server Unavailable
+46. Model Unavailable
+47. Database Unavailable
+48. Network Failure
+49. 404
+
+==================================================
+8. LANDING PAGE
+==================================================
+
+Create a premium landing page.
+
+Hero:
+
+MediAI Ghana
+
+“Technical Decision Support. Human Judgement First.”
+
+Description:
+
+“A non-diagnostic clinical decision-support prototype for structured synthetic symptom assessment, bounded machine-learning classification and transparent technical evaluation.”
+
+Primary button:
+
+“Sign In”
+
+Secondary button:
+
+“Explore Prototype”
+
+Prominent badge:
+
+“RESEARCH PROTOTYPE”
+
+Safety notice:
+
+“Not for Clinical Diagnosis or Treatment”
+
+Hero visual:
+
+Show a sophisticated mockup of the MediAI dashboard.
+
+Do not show a fake patient.
+
+Do not show a fake doctor receiving an AI diagnosis.
+
+Below hero:
+
+SECTION:
+
+“Designed Around Responsible AI”
+
+Four feature cards:
+
+1. Bounded Classification
+“Four predefined model labels with explicit out-of-scope handling.”
+
+2. Human Oversight
+“Outputs support professional judgement and do not replace it.”
+
+3. Secure Access
+“Server-enforced role-based permissions and protected sessions.”
+
+4. Transparent Evaluation
+“Versioned model, symptom mapping, audit events and reproducible technical evaluation.”
+
+==================================================
+9. SUPPORTED CONDITIONS SECTION
+==================================================
+
+Create:
+
+“Current Model Scope”
+
+Four cards:
+
+MALARIA
+Technical model label
+
+TYPHOID FEVER
+Technical model label
+
+PNEUMONIA
+Technical model label
+
+DIABETES MELLITUS
+Technical model label
+
+Add:
+
+“Four-label demonstration model”
+
+Then:
+
+“Other conditions are outside the active model scope.”
+
+==================================================
+10. SAFETY SECTION
+==================================================
+
+Create a major section:
+
+“Important Clinical Boundary”
+
+Display:
+
+“Human judgement remains essential.”
+
+Text:
+
+“MediAI Ghana is a non-diagnostic technical prototype. Its outputs are bounded model results generated from synthetic demonstration records. The system does not confirm or exclude disease, prescribe treatment, provide clinical probability, or replace professional assessment.”
+
+Use a professional warning/info design.
+
+==================================================
+11. LOGIN
+==================================================
+
+Create a secure login page.
+
+Layout:
+
+Left:
+Branding + abstract AI/health visual.
+
+Right:
+Login form.
+
+Title:
+
+“Welcome to MediAI Ghana”
+
+Subtitle:
+
+“Authorised access to the clinical decision-support research prototype.”
+
+Fields:
+
+Email / Username
+Password
+
+Button:
+
+“Sign In”
+
+Security information:
+
+“Secure session”
+“Authorised users only”
+
+Notice:
+
+“This application uses synthetic demonstration records.”
+
+Do NOT create public registration.
+
+Do NOT add:
+- Google login
+- Facebook login
+- Patient registration
+- Public account creation
+
+Include:
+Forgot Password
+
+Include error states:
+Invalid credentials
+Account suspended
+Rate limit
+Server unavailable
+
+==================================================
+12. AUTHENTICATION SECURITY
+==================================================
+
+Visually communicate:
+
+- Secure authentication
+- HTTP-only cookies
+- SameSite protection
+- 15-minute inactivity timeout
+- Server-side session revocation
+- Password hashing
+- Authentication rate limiting
+
+Do not display implementation secrets.
+
+==================================================
+13. EVALUATOR DASHBOARD
+==================================================
+
+This is the main working interface.
+
+Sidebar:
+
+MEDiAI GHANA
+
+MAIN
+Dashboard
+New Assessment
+Assessment History
+
+ANALYSIS
+Model Information
+Symptom Map
+
+SECURITY
+Account & Security
+
+SYSTEM
+System Status
+Documentation
+
+Do NOT show:
+- Admin Dashboard
+- Users & Roles
+- System Audit
+
+to an Evaluator.
+
+Top bar:
+
+Page title
+System status
+User avatar
+Evaluator role
+
+Example:
+
+Evaluator A
+Evaluator
+
+==================================================
+14. DASHBOARD SAFETY BANNER
+==================================================
+
+At the top of the dashboard:
+
+“RESEARCH PROTOTYPE — NOT FOR CLINICAL DIAGNOSIS”
+
+Supporting text:
+
+“Technical model outputs are generated from synthetic demonstration records and must not replace professional clinical judgement.”
+
+Make this prominent but elegant.
+
+==================================================
+15. DASHBOARD STATISTICS
+==================================================
+
+Create cards:
+
+TOTAL ASSESSMENTS
+
+Synthetic records
+
+SUPPORTED CONDITIONS
+
+4 Model Labels
+
+MODEL VERSION
+
+MediAI Classifier
+v1.0
+
+SYMPTOM MAP
+
+SYMPTOM_MAP v1.0
+
+Do NOT create fake clinical statistics.
+
+Do NOT display:
+- Patients treated
+- Patients diagnosed
+- Lives saved
+- Disease prevalence
+- Clinical accuracy claims
+
+==================================================
+16. START NEW ASSESSMENT
+==================================================
+
+Create a prominent card:
+
+“Start a New Assessment”
+
+Description:
+
+“Create a synthetic demonstration record and run a bounded technical model assessment.”
+
+Button:
+
+“Begin Assessment →”
+
+==================================================
+17. RECENT ASSESSMENTS
+==================================================
+
+Create a professional table:
+
+Assessment ID
+Created
+Model Output
+Model Score
+Model Version
+Status
+
+Example:
+
+ASS-0012
+10 Aug 2026
+Malaria
+0.87
+v1.0
+Completed
+
+ASS-0011
+09 Aug 2026
+—
+—
+v1.0
+Insufficient Information
+
+ASS-0010
+09 Aug 2026
+Pneumonia
+0.74
+v1.0
+Completed
+
+ASS-0009
+08 Aug 2026
+Typhoid Fever
+0.81
+v1.0
+Completed
+
+ASS-0008
+07 Aug 2026
+—
+—
+v1.0
+Out of Scope
+
+IMPORTANT:
+
+Use:
+
+“MODEL OUTPUT”
+
+NOT:
+
+“Diagnosis”
+
+Use:
+
+“MODEL SCORE”
+
+NOT:
+
+“Confidence”
+“Probability”
+“Clinical Probability”
+
+==================================================
+18. SYSTEM STATUS
+==================================================
+
+Create:
+
+SYSTEM STATUS
+
+Frontend
+● Operational
+
+API Server
+● Operational
+
+Database
+● Operational
+
+ML Model
+● Operational
+
+Authentication
+● Operational
+
+Audit Logging
+● Operational
+
+==================================================
+19. NEW ASSESSMENT WORKFLOW
+==================================================
+
+Create a beautiful step-by-step workflow.
+
+Progress:
+
+1. Synthetic Record
+2. Symptoms
+3. Review
+4. Technical Assessment
+5. Result
+
+==================================================
+20. STEP 1 — SYNTHETIC RECORD
+==================================================
+
+Title:
+
+“Create Synthetic Demonstration Record”
+
+Prominent notice:
+
+“Synthetic Records Only”
+
+Text:
+
+“This prototype does not accept real or de-identified patient records.”
+
+Fields should be minimal and appropriate for synthetic technical testing.
+
+Do not collect unnecessary personal information.
+
+Include:
+
+Assessment ID
+Automatically generated
+
+Technical Record ID
+Automatically generated
+
+Synthetic data fields required for evaluation
+
+Checkbox:
+
+“I confirm that this is a synthetic demonstration record.”
+
+==================================================
+21. STEP 2 — SYMPTOMS
+==================================================
+
+Create:
+
+“Select Supported Symptoms”
+
+Use:
+- Search
+- Categories
+- Checkboxes
+- Chips
+- Clear selected-state indicators
+
+Make the interaction highly polished.
+
+Show:
+
+“Supported Application Symptoms”
+
+Then:
+
+“Disabled / Unsupported Features”
+
+Disable:
+
+- Body Weakness
+- Excessive Thirst
+- Runny Nose
+- Joint Pain
+- Sore Throat
+- Loss of Appetite
+
+Disabled message:
+
+“These features are currently unavailable because the active symptom map does not contain approved model evidence for them.”
+
+Do not allow selection.
+
+==================================================
+22. BLOOD PRESSURE FEATURE
+==================================================
+
+Create a clearly disabled card:
+
+“Blood-Pressure Classification”
+
+Status:
+
+“Disabled”
+
+Icon:
+
+Lock
+
+Text:
+
+“This feature is outside the active functional scope and cannot be used without qualified clinical approval, a versioned specification and safety testing.”
+
+No activation button.
+
+Do not add blood-pressure thresholds.
+
+Do not add referral logic.
+
+==================================================
+23. INPUT VALIDATION
+==================================================
+
+Create a validation panel.
+
+Possible states:
+
+Valid
+Missing Information
+Unsupported Symptom
+Contradictory Input
+Out of Scope
+
+Show clear explanations.
+
+The system should never force invalid information into a disease label.
+
+==================================================
+24. STEP 3 — REVIEW
+==================================================
+
+Display:
+
+Synthetic Record
+Selected Symptoms
+Input Validation
+Model Version
+Symptom Map Version
+
+Show:
+
+MediAI Classifier v1.0
+
+SYMPTOM_MAP v1.0
+
+Add:
+
+“Human judgement remains essential.”
+
+Button:
+
+“Run Technical Assessment”
+
+==================================================
+25. STEP 4 — PROCESSING
+==================================================
+
+Create a technical server-side processing screen.
+
+Title:
+
+“Running Technical Assessment”
+
+Steps:
+
+✓ Input validated
+✓ Authorisation verified
+✓ Symptom mapping checked
+✓ Server-side model loaded
+● Running inference
+○ Generating bounded output
+○ Recording audit event
+
+Display:
+
+Inference:
+Server-side
+
+Runtime:
+TensorFlow.js
+
+Do not portray AI as a magical autonomous doctor.
+
+==================================================
+26. STEP 5 — RESULT
+==================================================
+
+Create the most polished screen in the entire application.
+
+Title:
+
+“Technical Assessment Result”
+
+Large card:
+
+MODEL OUTPUT
+
+Malaria
+
+Below:
+
+MODEL SCORE
+
+0.87
+
+Badge:
+
+NOT A DIAGNOSIS
+
+Add:
+
+“This result is generated by a restricted four-condition machine-learning model using synthetic demonstration data. It does not confirm or exclude disease and must not replace professional clinical assessment.”
+
+Technical metadata:
+
+Assessment ID
+ASS-0012
+
+Model
+MediAI Classifier v1.0
+
+Symptom Map
+SYMPTOM_MAP v1.0
+
+Input
+Synthetic Demonstration Record
+
+Inference
+Server-side
+
+Timestamp
+
+==================================================
+27. RESULT BOUNDARY
+==================================================
+
+Add:
+
+“Model Scope”
+
+Supported labels:
+
+Malaria
+Typhoid Fever
+Pneumonia
+Diabetes Mellitus
+
+Outside scope:
+
+Other diseases
+Unsupported symptom combinations
+Comorbid presentations
+Distributionally dissimilar inputs
+
+==================================================
+28. ABSTENTION / INSUFFICIENT INFORMATION
+==================================================
+
+Create a visually distinct but professional state:
+
+“Insufficient Information”
+
+Description:
+
+“The submitted information does not satisfy the predefined support conditions of the four-label demonstration model.”
+
+Show possible reasons:
+
+Missing information
+Unsupported input
+Invalid combination
+Below acceptance threshold
+
+Button:
+
+“Review Assessment”
+
+Do not produce a forced disease label.
+
+==================================================
+29. OUT-OF-SCOPE STATE
+==================================================
+
+Create:
+
+“Out of Scope”
+
+Description:
+
+“This input falls outside the supported scope of the MediAI Ghana demonstration model.”
+
+Show:
+
+Current model:
+4 supported labels
+
+Malaria
+Typhoid Fever
+Pneumonia
+Diabetes Mellitus
+
+Button:
+
+“Return to Assessment”
+
+==================================================
+30. ASSESSMENT HISTORY
+==================================================
+
+Create a professional history interface.
+
+Filters:
+
+All
+Completed
+Insufficient Information
+Out of Scope
+
+Search:
+
+Assessment ID
+
+Columns:
+
+Assessment ID
+Date
+Model Output
+Model Score
+Model Version
+Status
+Action
+
+Clicking an assessment opens details.
+
+==================================================
+31. ASSESSMENT DETAILS
+==================================================
+
+Create:
+
+Assessment Overview
+
+Synthetic Record
+
+Selected Symptoms
+
+Validation
+
+Model Output
+
+Model Score
+
+Model Version
+
+Symptom Map Version
+
+Audit Information
+
+Create a timeline:
+
+Record Created
+↓
+Input Validated
+↓
+Model Executed
+↓
+Result Recorded
+
+==================================================
+32. MODEL INFORMATION
+==================================================
+
+Create a sophisticated technical page.
+
+Title:
+
+“Model Information”
+
+Cards:
+
+Model:
+MediAI Four-Class Classifier
+
+Runtime:
+TensorFlow.js
+
+Inference:
+Server-side
+
+Current Version:
+v1.0
+
+Labels:
+4
+
+Dataset:
+Externally sourced demonstration data
+
+Create model pipeline:
+
+Source Dataset
+↓
+Dataset Freeze
+↓
+Preprocessing
+↓
+Duplicate Audit
+↓
+Grouped Partitioning
+↓
+Training
+↓
+Validation
+↓
+Frozen Test
+↓
+TensorFlow.js Export
+↓
+Server Deployment
+
+Add warning:
+
+“Technical performance does not establish clinical validity.”
+
+==================================================
+33. SYMPTOM MAP
+==================================================
+
+Create:
+
+“SYMPTOM MAP”
+
+Version:
+
+SYMPTOM_MAP v1.0
+
+Table:
+
+Source Feature
+Application Term
+Transformation
+Author
+Reviewer
+Review Date
+Status
+
+Statuses:
+
+Approved
+Disabled
+Pending Review
+
+==================================================
+34. ADMINISTRATOR EXPERIENCE
+==================================================
+
+Create a separate Administrator dashboard.
+
+Administrator sidebar:
+
+MAIN
+Dashboard
+Assessment History
+
+ADMINISTRATION
+Admin Dashboard
+Users & Roles
+Model Versions
+Symptom Map Versions
+System Audit
+Retention Configuration
+
+SECURITY
+Account & Security
+
+SYSTEM
+System Status
+Documentation
+
+Admin dashboard cards:
+
+Active Users
+Suspended Users
+Current Model
+Current Symptom Map
+Audit Events
+System Status
+
+==================================================
+35. USER & ROLE MANAGEMENT
+==================================================
+
+Create:
+
+Users & Roles
+
+Table:
+
+User
+Role
+Status
+Last Active
+Actions
+
+Roles:
+
+System Administrator
+Evaluator
+Supervisor / Auditor
+
+Create role permission display.
+
+==================================================
+36. ROLE PERMISSION MATRIX
+==================================================
+
+Create a clear matrix.
+
+SYSTEM ADMINISTRATOR:
+
+Can:
+Create accounts
+Suspend accounts
+Assign roles
+Activate frozen model version
+Activate symptom-map version
+Configure retention
+View system audit events
+
+Cannot:
+Create clinical thresholds
+Activate blood-pressure functionality without documented clinical approval
+Alter frozen evaluation data
+
+EVALUATOR:
+
+Can:
+Create synthetic records
+Edit own records
+Delete own records
+Submit supported symptoms
+View bounded outputs
+View own history
+
+Cannot:
+Manage accounts
+Change model versions
+Change symptom-map versions
+View another evaluator's records
+Modify audit events
+Access disabled clinical features
+
+SUPERVISOR / AUDITOR:
+
+Can:
+View configuration
+View version metadata
+View test evidence
+View audit events
+
+Cannot:
+Modify records
+Run administrative operations
+Change versions
+Delete audit evidence
+
+==================================================
+37. AUDIT LOG
+==================================================
+
+Create:
+
+“System Audit”
+
+Table:
+
+Timestamp
+Account
+Role
+Action
+Assessment
+Model Version
+Outcome
+Status
+
+Actions:
+
+LOGIN
+LOGOUT
+CREATE_ASSESSMENT
+UPDATE_ASSESSMENT
+DELETE_ASSESSMENT
+RUN_MODEL
+VIEW_RESULT
+ACCESS_DENIED
+MODEL_VERSION_ACTIVATED
+SYMPTOM_MAP_UPDATED
+
+Do not expose:
+Passwords
+Tokens
+Secrets
+
+==================================================
+38. SECURITY & ACCESS CONTROL
+==================================================
+
+Create:
+
+“Security & Access Control”
+
+Cards:
+
+Authentication
+Protected
+
+Authorisation
+Server Enforced
+
+Session Security
+Active
+
+Rate Limiting
+Enabled
+
+Audit Logging
+Enabled
+
+RBAC
+Enabled
+
+Add architecture:
+
+User
+↓
+Authentication
+↓
+Role Verification
+↓
+Server Permission Check
+↓
+Protected Operation
+
+Make it clear that hiding a button is NOT the security mechanism.
+
+==================================================
+39. SYSTEM ARCHITECTURE
+==================================================
+
+Create a highly polished architecture diagram.
+
+Browser
+↓
+React / TypeScript
+↓
+Node.js / Express / TypeScript
+↓
+MySQL
+
+And:
+
+Node.js Server
+↓
+TensorFlow.js Model
+
+Show:
+
+Authentication
+Authorization
+Input Validation
+Audit Logging
+Version Control
+
+All around the server.
+
+IMPORTANT:
+
+Clearly show that model inference occurs on the SERVER.
+
+Do not show the model running in the browser.
+
+==================================================
+40. TECHNICAL EVALUATION PAGE
+==================================================
+
+Create a professional academic evaluation dashboard.
+
+Sections:
+
+Dataset Integrity
+Baseline Comparison
+Model Selection
+Final Classifier Test
+Abstention Behaviour
+Functional & Safety Behaviour
+Security & Authorisation
+Performance & Resilience
+Exploratory Usability
+
+Use technical terminology.
+
+Possible metrics:
+
+Accuracy
+Precision
+Recall
+Specificity
+F1
+Macro-F1
+
+Confusion matrix:
+
+Malaria
+Typhoid Fever
+Pneumonia
+Diabetes Mellitus
+
+IMPORTANT:
+
+Every evaluation page should contain:
+
+“Technical Evaluation — Not Clinical Validation”
+
+Do not claim:
+“Clinical accuracy”
+“Diagnostic accuracy”
+“Clinical effectiveness”
+
+==================================================
+41. PERFORMANCE / RESILIENCE
+==================================================
+
+Create technical monitoring cards for:
+
+Response Time
+Median
+95th percentile
+
+Connectivity Profile:
+400 kbps
+400 ms latency
+
+Failure Tests:
+Database unavailable
+Model unavailable
+Network interruption
+
+Expected behaviour:
+
+“No fabricated result”
+
+“Clear retry guidance”
+
+==================================================
+42. DOCUMENTATION
+==================================================
+
+Create documentation sections:
+
+Project Purpose
+Intended Use
+Model Scope
+Safety Boundaries
+Architecture
+Data Governance
+Security
+Evaluation
+Limitations
+
+==================================================
+43. LIMITATIONS PAGE
+==================================================
+
+Make limitations transparent.
+
+Include:
+
+Small externally sourced dataset
+
+Non-Ghanaian development data
+
+Limited four-label model
+
+Possible duplicate / near-duplicate patterns
+
+No clinical validation
+
+No external usability study
+
+No clinical adviser-approved blood-pressure feature
+
+Low-connectivity limitations
+
+No regulatory approval
+
+No real patient data
+
+No deployment readiness claim
+
+This should look like a strength of responsible design, not a weakness.
+
+==================================================
+44. ABOUT PAGE
+==================================================
+
+Create:
+
+“About MediAI Ghana”
+
+Sections:
+
+What is MediAI Ghana?
+
+Why was it developed?
+
+What does it demonstrate?
+
+What does it NOT do?
+
+Who can use the prototype?
+
+What are its limitations?
+
+Use clear professional language.
+
+==================================================
+45. ACCOUNT & SECURITY
+==================================================
+
+Show:
+
+Account ID
+Role
+Account Status
+Last Login
+
+Security:
+
+Change Password
+Session Status
+Logout
+
+Do not show unnecessary personal data.
+
+==================================================
+46. RESPONSIVE DESIGN
+==================================================
+
+Create responsive layouts for:
+
+Desktop
+Tablet
+Mobile
+
+Desktop:
+Sidebar + top navigation
+
+Tablet:
+Collapsible sidebar
+
+Mobile:
+Hamburger navigation / bottom navigation
+
+Assessment workflow must remain easy to use on mobile.
+
+Tables must transform into cards on smaller screens.
+
+==================================================
+47. ACCESSIBILITY
+==================================================
+
+Use:
+
+High contrast
+Readable typography
+Keyboard-friendly controls
+Clear labels
+Accessible form validation
+Large clickable areas
+Text + icons rather than colour alone
+
+==================================================
+48. COMPONENT DESIGN SYSTEM
+==================================================
+
+Create reusable components:
+
+Buttons
+Inputs
+Dropdowns
+Checkboxes
+Radio buttons
+Cards
+Badges
+Tables
+Tabs
+Alerts
+Tooltips
+Modals
+Toast messages
+Status indicators
+Progress indicators
+Timelines
+Charts
+Navigation
+Sidebars
+
+Variants:
+
+Default
+Hover
+Active
+Disabled
+Loading
+Success
+Warning
+Error
+
+==================================================
+49. ERROR STATES
+==================================================
+
+Create professional states for:
+
+Invalid Input
+Insufficient Information
+Out of Scope
+Permission Denied
+Session Expired
+Network Error
+API Error
+Database Unavailable
+Model Unavailable
+Server Error
+404
+
+For model/dependency failure:
+
+NEVER fabricate a result.
+
+Show:
+
+“Assessment could not be completed.”
+
+“Please try again.”
+
+==================================================
+50. IMPORTANT TERMINOLOGY RULES
+==================================================
+
+ALWAYS use:
+
+“Technical Assessment”
+“Model Output”
+“Model Score”
+“Synthetic Demonstration Record”
+“Four-label Model”
+“Non-Diagnostic Prototype”
+“Out of Scope”
+“Insufficient Information”
+“Server-side Inference”
+“Technical Evaluation”
+“Human Judgement”
+
+NEVER use:
+
+“Diagnosis”
+“Diagnose”
+“Confirmed Disease”
+“Clinical Probability”
+“Confidence”
+“Treatment Recommendation”
+“Prescription”
+“Medical Advice”
+“Patient Diagnosis”
+“AI Doctor”
+“Guaranteed Accuracy”
+
+==================================================
+51. WHAT THE FINAL WEBSITE SHOULD COMMUNICATE
+==================================================
+
+When a supervisor opens the website, they should immediately understand:
+
+1. This is MediAI Ghana.
+2. It is a non-diagnostic research prototype.
+3. It uses synthetic records.
+4. It supports exactly four model labels.
+5. It does not force unsupported cases into a disease label.
+6. Model scores are technical outputs.
+7. The model runs server-side.
+8. Access is role-based.
+9. Model and symptom-map versions are tracked.
+10. Activities are auditable.
+11. Security is server-enforced.
+12. Technical performance is different from clinical validity.
+13. Blood-pressure functionality is disabled.
+14. The system is not ready for clinical deployment.
+
+==================================================
+52. FINAL DESIGN QUALITY
+==================================================
+
+The final website must be:
+
+Professional
+Modern
+Clean
+Premium
+Consistent
+Responsive
+Accessible
+Technically credible
+Academic
+Health-tech focused
+Ghanaian in identity
+Suitable for a final-year project demonstration
+
+Create realistic synthetic sample data.
+
+Do not create fake clinical claims.
+
+Do not add functionality outside the project scope.
+
+The entire interface should feel like a real secure clinical decision-support research platform while remaining clearly bounded as an academic prototype.
+
+PRIORITY ORDER:
+
+1. Accuracy to Chapter One
+2. Safety and non-diagnostic boundaries
+3. Correct role-based access
+4. Assessment workflow
+5. Model transparency
+6. Security
+7. Technical evaluation
+8. Professional UI/UX
+9. Responsive design
+10. Ghanaian identity
+
+Build the complete connected Figma prototype with realistic interactions, navigation, states, empty states, error states, loading states and role-specific experiences.
+
+Do not simplify the system into a generic dashboard.
+
+Design the complete MediAI Ghana application.

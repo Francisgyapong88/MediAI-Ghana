@@ -153,3 +153,4 @@ ml/*.h5
 ml/*.keras
 ml/venv_convert/
 ml/tfjs_test/node_modules/
+supervisor.json

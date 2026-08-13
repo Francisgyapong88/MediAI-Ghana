@@ -1,0 +1,10 @@
+{
+  "description": "Easily create a professional website tailored to your needs, empowering businesses and individuals to establish a strong online presence with minimal effort.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
