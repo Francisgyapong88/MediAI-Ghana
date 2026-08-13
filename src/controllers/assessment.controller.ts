@@ -3,13 +3,24 @@ import { prisma } from "../config/prisma";
 import { writeAuditLog } from "../utils/audit";
 
 /**
- * Plausibility bounds for optional vital signs (FR-03 boundary cases).
- * PLACEHOLDER RANGES â€” these are measurement-plausibility limits, not
- * clinical reference ranges, and must be confirmed against the approved
- * project record before Chapter Four reports any boundary-case evidence.
+ * Plausibility bounds for optional vital signs (FR-03 boundary cases),
+ * confirmed 13 Aug 2026. These are physiological-plausibility limits, NOT
+ * clinical reference/normal ranges - a value inside this range can still be
+ * clinically abnormal (e.g. a 41 degree C fever) and must be accepted, not
+ * rejected. The bounds only exist to catch values that are not physically
+ * possible for a living person (e.g. a data-entry typo), so the classifier
+ * and clinician still see genuinely abnormal-but-real readings.
+ *
+ * temperatureC 30-45: 30 is severe hypothermia (barely survivable), 45 is
+ * beyond survivable hyperthermia.
+ * heartRate 20-250: 20 is near-death bradycardia, 250 covers extreme
+ * tachyarrhythmia (including higher infant baselines, since synthetic
+ * patients span the full age range).
+ * respiratoryRate 5-80: 5 is near-death bradypnea, 80 covers severe
+ * distress and higher paediatric baselines.
  */
 const VITAL_RANGES = {
-  temperatureC: { min: 30, max: 45, label: "Temperature (Â°C)" },
+  temperatureC: { min: 30, max: 45, label: "Temperature (degrees C)" },
   heartRate: { min: 20, max: 250, label: "Heart rate (bpm)" },
   respiratoryRate: { min: 5, max: 80, label: "Respiratory rate (breaths/min)" },
 } as const;
@@ -45,8 +56,6 @@ export async function createAssessment(req: Request, res: Response): Promise<voi
     return;
   }
 
-  // Only allow symptoms that exist AND are enabled â€” unsupported terms are
-  // rejected outright rather than silently accepted (Chapter Three Â§3.6).
   const symptomRows = await prisma.symptom.findMany({
     where: { name: { in: symptoms }, isEnabled: true },
   });
@@ -60,7 +69,6 @@ export async function createAssessment(req: Request, res: Response): Promise<voi
     return;
   }
 
-  // Vital signs are optional, but if supplied they must be plausible.
   const temp = validateVital(temperatureC, "temperatureC");
   const hr = validateVital(heartRate, "heartRate");
   const rr = validateVital(respiratoryRate, "respiratoryRate");
@@ -122,8 +130,6 @@ export async function listAssessments(req: Request, res: Response): Promise<void
     include: {
       visit: { include: { patient: true } },
       assessmentSymptoms: { include: { symptom: true } },
-      // model and map are included so every displayed output carries its
-      // versioning provenance (FR-06).
       predictionSessions: {
         include: { model: true, map: true, results: { include: { disease: true } } },
       },
