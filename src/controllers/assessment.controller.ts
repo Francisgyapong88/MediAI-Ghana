@@ -1,15 +1,15 @@
-import { Request, Response } from "express";
+﻿import { Request, Response } from "express";
 import { prisma } from "../config/prisma";
 import { writeAuditLog } from "../utils/audit";
 
 /**
  * Plausibility bounds for optional vital signs (FR-03 boundary cases).
- * PLACEHOLDER RANGES — these are measurement-plausibility limits, not
+ * PLACEHOLDER RANGES â€” these are measurement-plausibility limits, not
  * clinical reference ranges, and must be confirmed against the approved
  * project record before Chapter Four reports any boundary-case evidence.
  */
 const VITAL_RANGES = {
-  temperatureC: { min: 30, max: 45, label: "Temperature (°C)" },
+  temperatureC: { min: 30, max: 45, label: "Temperature (Â°C)" },
   heartRate: { min: 20, max: 250, label: "Heart rate (bpm)" },
   respiratoryRate: { min: 5, max: 80, label: "Respiratory rate (breaths/min)" },
 } as const;
@@ -45,8 +45,8 @@ export async function createAssessment(req: Request, res: Response): Promise<voi
     return;
   }
 
-  // Only allow symptoms that exist AND are enabled — unsupported terms are
-  // rejected outright rather than silently accepted (Chapter Three §3.6).
+  // Only allow symptoms that exist AND are enabled â€” unsupported terms are
+  // rejected outright rather than silently accepted (Chapter Three Â§3.6).
   const symptomRows = await prisma.symptom.findMany({
     where: { name: { in: symptoms }, isEnabled: true },
   });
