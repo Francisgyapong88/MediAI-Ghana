@@ -73,7 +73,7 @@ export default function AdminDashboard() {
     <div>
       <div style={{ marginBottom: 20 }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 4 }}>Administration Dashboard</h1>
-        <p style={{ fontSize: 14, color: '#6b7280' }}>System-wide overview for administrators.</p>
+        <p style={{ fontSize: 14, color: '#6b7280' }}>Welcome, Administrator. Manage system accounts, model versions, symptom-map versions, and audit activity from this dashboard.</p>
       </div>
 
       {/* Safety banner */}
