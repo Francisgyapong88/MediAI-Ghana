@@ -31,7 +31,7 @@ const navSections = [
     label: 'SYSTEM',
     items: [
       { to: '/app/status', label: 'System Status', icon: <ActivityIcon /> },
-      { to: '/app/docs', label: 'Documentation', icon: <BookIcon /> },
+
     ],
   },
 ]
