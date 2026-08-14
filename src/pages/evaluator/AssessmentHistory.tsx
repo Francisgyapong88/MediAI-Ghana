@@ -92,7 +92,7 @@ export default function AssessmentHistory() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 4 }}>Assessment History</h1>
-          <p style={{ fontSize: 14, color: '#6b7280' }}>Technical assessment records for synthetic demonstration data.</p>
+          <p style={{ fontSize: 14, color: '#6b7280' }}>Review previously recorded clinical decision-support assessments.</p>
         </div>
         {!readOnly && (
           <NavLink to="/app/new-assessment">
@@ -131,7 +131,7 @@ export default function AssessmentHistory() {
 
       {/* Terminology note */}
       <div style={{ fontSize: 11.5, color: '#9ca3af', marginBottom: 12, padding: '0 4px' }}>
-        Columns use technical terminology: <strong>Model Output</strong> (not "Diagnosis") · <strong>Model Score</strong> (not "Confidence" or "Probability") · <strong>Synthetic Records</strong> only
+        Columns use technical terminology: <strong>Model Output</strong> (not "Diagnosis") · <strong>Model Score</strong> (not "Confidence" or "Probability")
       </div>
 
       {/* Table */}
