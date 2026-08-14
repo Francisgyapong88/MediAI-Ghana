@@ -85,7 +85,7 @@ export default function Landing() {
                 <strong style={{ color: 'white', fontWeight: 700 }}>Human Judgement First.</strong>
               </p>
               <p style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: 36, maxWidth: 480 }}>
-                Structured symptom capture, bounded machine-learning classification and transparent technical evaluation — designed for academic demonstration and responsible AI research.
+                Structured symptom capture, bounded machine-learning classification and transparent technical evaluation â€” designed for academic demonstration and responsible AI research.
               </p>
               <div style={{ display: 'flex', gap: 12 }}>
                 <NavLink to="/login">
@@ -99,7 +99,7 @@ export default function Landing() {
               </div>
             </div>
 
-            {/* Right — Dashboard mockup */}
+            {/* Right â€” Dashboard mockup */}
             <div style={{ position: 'relative' }}>
               <DashboardMockup />
             </div>
@@ -113,7 +113,7 @@ export default function Landing() {
           <div style={{ width: 4, height: 40, background: '#dc2626', borderRadius: 2, flexShrink: 0 }} />
           <div>
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', color: '#ef4444', textTransform: 'uppercase', marginBottom: 3 }}>
-              Important Clinical Boundary — Human Judgement Remains Essential
+              Important Clinical Boundary â€” Human Judgement Remains Essential
             </div>
             <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>
               MediAI Ghana is a non-diagnostic technical prototype. Its outputs are bounded model results generated from synthetic demonstration records. The system does not confirm or exclude disease, prescribe treatment, provide clinical probability, or replace professional assessment.
@@ -196,7 +196,7 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Logo size="compact" />
           <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', textAlign: 'center' }}>
-            MediAI Ghana — Undergraduate Final-Year Project · Non-Diagnostic Research Prototype
+            MediAI Ghana â€” Undergraduate Final-Year Project Â· Non-Diagnostic Research Prototype
           </div>
           <div style={{ fontSize: 11, color: '#ef4444', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             Not for Clinical Use
@@ -222,13 +222,13 @@ function DashboardMockup() {
         <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#dc2626' }} />
         <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#d97706' }} />
         <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#16a34a' }} />
-        <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginLeft: 8, fontFamily: "'JetBrains Mono', monospace" }}>MediAI Ghana — Evaluator Dashboard</span>
+        <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginLeft: 8, fontFamily: "'JetBrains Mono', monospace" }}>MediAI Ghana â€” Evaluator Dashboard</span>
       </div>
       {/* Safety banner */}
       <div style={{ background: 'rgba(220,38,38,0.08)', borderBottom: '1px solid rgba(220,38,38,0.15)', padding: '8px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ width: 3, height: 24, background: '#dc2626', borderRadius: 2, flexShrink: 0 }} />
         <div>
-          <div style={{ fontSize: 8, fontWeight: 800, color: '#ef4444', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Research Prototype — Not for Clinical Diagnosis</div>
+          <div style={{ fontSize: 8, fontWeight: 800, color: '#ef4444', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Research Prototype â€” Not for Clinical Diagnosis</div>
           <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', marginTop: 1 }}>Technical model outputs from synthetic demonstration records</div>
         </div>
       </div>
@@ -237,8 +237,8 @@ function DashboardMockup() {
         {[
           { label: 'Total Assessments', value: '47', sub: 'Synthetic records' },
           { label: 'Supported Conditions', value: '4', sub: 'Model Labels' },
-          { label: 'Model Version', value: 'v1.0', sub: 'MediAI Classifier' },
-          { label: 'Symptom Map', value: 'v1.0', sub: 'SYMPTOM_MAP' },
+          { label: 'Model Version', value: 'v1.0.0', sub: 'MediAI Classifier' },
+          { label: 'Symptom Map', value: 'v1.0.0', sub: 'SYMPTOM_MAP' },
         ].map(s => (
           <div key={s.label} style={{ background: '#0a1628', padding: '14px 12px' }}>
             <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>{s.label}</div>
@@ -251,9 +251,9 @@ function DashboardMockup() {
       <div style={{ padding: '12px' }}>
         <div style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Recent Assessments</div>
         {[
-          { id: 'ASS-0012', output: 'Malaria', score: '0.87', status: 'Completed', color: '#16a34a' },
-          { id: 'ASS-0011', output: '—', score: '—', status: 'Insufficient Info', color: '#d97706' },
-          { id: 'ASS-0010', output: 'Pneumonia', score: '0.74', status: 'Completed', color: '#16a34a' },
+          { id: 'ASS-0012', output: 'Malaria', score: '0.91', status: 'Completed', color: '#16a34a' },
+          { id: 'ASS-0011', output: 'â€”', score: 'â€”', status: 'Insufficient Info', color: '#d97706' },
+          { id: 'ASS-0010', output: 'Diabetes mellitus', score: '0.81', status: 'Completed', color: '#16a34a' },
         ].map(row => (
           <div key={row.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.03)', marginBottom: 3 }}>
             <span style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>{row.id}</span>
