@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { api, ApiError } from '../../lib/api'
+import WelcomeBanner from '../../components/WelcomeBanner'
 
 interface Assessment {
   id: number
@@ -22,9 +23,9 @@ const STATUS_LABELS: Record<string, string> = {
 }
 
 function statusTag(status: string) {
-  if (status === 'Completed') return <span className="tag tag-completed">● Completed</span>
-  if (status === 'Insufficient Information') return <span className="tag tag-insufficient">⚠ Insufficient Info</span>
-  if (status === 'Out of Scope') return <span className="tag tag-outofscope">✕ Out of Scope</span>
+  if (status === 'Completed') return <span className="tag tag-completed">Completed</span>
+  if (status === 'Insufficient Information') return <span className="tag tag-insufficient">Insufficient Info</span>
+  if (status === 'Out of Scope') return <span className="tag tag-outofscope">Out of Scope</span>
   return <span className="tag tag-pending">{status}</span>
 }
 
@@ -63,9 +64,9 @@ export default function EvaluatorDashboard() {
       id: a.id,
       label: `ASS-${String(a.id).padStart(4, '0')}`,
       date: new Date(a.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-      output: top ? titleCase(top.disease.name) : '—',
-      score: top ? top.score.toFixed(2) : '—',
-      version: session?.model?.version ?? '—',
+      output: top ? titleCase(top.disease.name) : '-',
+      score: top ? top.score.toFixed(2) : '-',
+      version: session?.model?.version ?? '-',
       status: STATUS_LABELS[session?.status ?? ''] ?? 'No session',
     }
   })
@@ -76,6 +77,7 @@ export default function EvaluatorDashboard() {
 
   return (
     <div>
+      <WelcomeBanner />
       {/* Page header */}
       <div style={{ marginBottom: 20 }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 4 }}>Dashboard</h1>
@@ -87,7 +89,7 @@ export default function EvaluatorDashboard() {
         <div style={{ width: 3, minHeight: 40, background: '#dc2626', borderRadius: 2, flexShrink: 0, marginTop: 2 }} />
         <div>
           <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '0.1em', color: '#ef4444', textTransform: 'uppercase', marginBottom: 4 }}>
-            Research Prototype — Not for Clinical Diagnosis
+            Research Prototype - Not for Clinical Diagnosis
           </div>
           <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.6)', lineHeight: 1.55 }}>
             Technical model outputs are generated from synthetic demonstration records and must not replace professional clinical judgement. This system is a bounded academic prototype.
@@ -105,10 +107,10 @@ export default function EvaluatorDashboard() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 20 }}>
         {[
-          { label: 'Your Assessments', value: loading ? '…' : String(assessments.length), sub: 'Synthetic records', color: '#0d9488' },
+          { label: 'Your Assessments', value: loading ? '...' : String(assessments.length), sub: 'Synthetic records', color: '#0d9488' },
           { label: 'Supported Conditions', value: '4', sub: 'Model labels', color: '#1d4ed8' },
-          { label: 'Model Version', value: activeModelVersion ?? '—', sub: 'MediAI Classifier', color: '#0d9488' },
-          { label: 'Symptom Map', value: mapVersion ?? '—', sub: 'SYMPTOM_MAP', color: '#7c3aed' },
+          { label: 'Model Version', value: activeModelVersion ?? '-', sub: 'MediAI Classifier', color: '#0d9488' },
+          { label: 'Symptom Map', value: mapVersion ?? '-', sub: 'SYMPTOM_MAP', color: '#7c3aed' },
         ].map(s => (
           <div key={s.label} className="metric-card">
             <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>{s.label}</div>
@@ -131,7 +133,7 @@ export default function EvaluatorDashboard() {
             </div>
             <NavLink to="/app/new-assessment">
               <button className="btn-primary" style={{ padding: '12px 22px', fontSize: 14, flexShrink: 0 }}>
-                Begin Assessment →
+                Begin Assessment
               </button>
             </NavLink>
           </div>
@@ -141,9 +143,9 @@ export default function EvaluatorDashboard() {
             <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628' }}>Recent Assessments</div>
-                <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>Using terminology: Model Output · Model Score · Synthetic Records</div>
+                <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>Using terminology: Model Output - Model Score - Synthetic Records</div>
               </div>
-              <NavLink to="/app/history" style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>View all →</NavLink>
+              <NavLink to="/app/history" style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>View all</NavLink>
             </div>
             <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
@@ -166,14 +168,14 @@ export default function EvaluatorDashboard() {
                     </td>
                     <td style={{ color: '#6b7280' }}>{row.date}</td>
                     <td style={{ fontWeight: 600 }}>{row.output}</td>
-                    <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, color: row.score !== '—' ? '#0d9488' : '#9ca3af' }}>{row.score}</td>
+                    <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, color: row.score !== '-' ? '#0d9488' : '#9ca3af' }}>{row.score}</td>
                     <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{row.version}</td>
                     <td>{statusTag(row.status)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {loading && <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>Loading…</div>}
+            {loading && <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>Loading...</div>}
             {!loading && rows.length === 0 && (
               <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>No assessments recorded yet.</div>
             )}
@@ -209,13 +211,13 @@ export default function EvaluatorDashboard() {
             <div style={{ fontSize: 11, fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 10 }}>Active Model</div>
             <div style={{ fontSize: 15, fontWeight: 800, color: '#0a1628', marginBottom: 4 }}>MediAI Classifier</div>
             <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#0d9488', marginBottom: 12 }}>
-              {activeModelVersion ? `${activeModelVersion} · TensorFlow.js` : 'TensorFlow.js'}
+              {activeModelVersion ? `${activeModelVersion} - TensorFlow.js` : 'TensorFlow.js'}
             </div>
             <div style={{ fontSize: 11.5, color: '#6b7280', lineHeight: 1.5, marginBottom: 12 }}>
-              Server-side inference · 4-label demonstration model · Externally sourced synthetic data
+              Server-side inference - 4-label demonstration model
             </div>
             <NavLink to="/app/model" style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>
-              View Model Information →
+              View Model Information
             </NavLink>
           </div>
 
