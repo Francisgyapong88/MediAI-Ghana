@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
 import { Logo } from '../components/Logo'
 import { useAuth } from '../context/AuthContext'
@@ -40,8 +40,6 @@ export default function Login() {
       navigate(homeFor(user.role))
     } catch (err) {
       if (err instanceof ApiError) {
-        // Status 0 is checked first — a dependency failure must never be
-        // reported to the user as a credential error (NFR-02).
         if (err.status === 0) setError('unavailable')
         else if (err.status === 429) setError('ratelimit')
         else if (err.code === 'AccountNotActive') setError('suspended')
@@ -63,10 +61,10 @@ export default function Login() {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100vh', background: '#060d1a' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100vh', background: '#f8fafc' }}>
       {/* Left panel */}
-      <div className="hero-gradient grid-bg" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '40px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, rgba(13,148,136,0.12) 0%, transparent 60%)' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '40px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, #f0fdfa 0%, #ffffff 55%, #f8fafc 100%)', borderRight: '1px solid #e2e8f0' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, rgba(13,148,136,0.09) 0%, transparent 60%)' }} />
         <div style={{ position: 'relative' }}>
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <Logo size="full" />
@@ -75,11 +73,11 @@ export default function Login() {
 
         <div style={{ position: 'relative' }}>
           <div className="research-badge" style={{ marginBottom: 20 }}>Research Prototype</div>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: 'white', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 16 }}>
+          <h2 style={{ fontSize: 36, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 16 }}>
             Technical Decision Support.<br />
-            <span style={{ color: '#14b8a6' }}>Human Judgement First.</span>
+            <span style={{ color: '#0d9488' }}>Human Judgement First.</span>
           </h2>
-          <p style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, maxWidth: 400 }}>
+          <p style={{ fontSize: 14.5, color: '#64748b', lineHeight: 1.7, maxWidth: 400 }}>
             Structured symptom capture, bounded machine-learning classification and transparent technical evaluation for academic demonstration.
           </p>
 
@@ -93,15 +91,15 @@ export default function Login() {
               { label: 'Server-side Sessions', icon: '🔐' },
               { label: 'Bcrypt Password Hashing', icon: '🔑' },
             ].map(s => (
-              <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 12px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8 }}>
+              <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 12px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 8 }}>
                 <span style={{ fontSize: 13 }}>{s.icon}</span>
-                <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{s.label}</span>
+                <span style={{ fontSize: 11.5, color: '#475569', fontWeight: 500 }}>{s.label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ position: 'relative', fontSize: 11, color: 'rgba(255,255,255,0.25)' }}>
+        <div style={{ position: 'relative', fontSize: 11, color: '#94a3b8' }}>
           Not for Clinical Diagnosis · Authorised Access Only · Synthetic Records Only
         </div>
       </div>
