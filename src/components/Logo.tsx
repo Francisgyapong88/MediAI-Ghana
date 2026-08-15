@@ -28,7 +28,7 @@ export function Logo({ size = 'full', dark = false }: { size?: 'full' | 'compact
       {size === 'full' && (
         <div>
           <div style={{ fontSize: 16, fontWeight: 800, color: textColor, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-            MediAI <span style={{ color: '#0d9488' }}>Ghana</span>
+            <span style={{ color: '#0f766e' }}>MediAI</span> <span style={{ color: '#0d9488' }}>Ghana</span>
           </div>
           <div style={{ fontSize: 9, fontWeight: 600, color: subColor, letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 1 }}>
             Non-Diagnostic Clinical Decision Support
@@ -37,7 +37,7 @@ export function Logo({ size = 'full', dark = false }: { size?: 'full' | 'compact
       )}
       {size === 'compact' && (
         <div style={{ fontSize: 15, fontWeight: 800, color: textColor, letterSpacing: '-0.02em' }}>
-          MediAI <span style={{ color: '#0d9488' }}>Ghana</span>
+          <span style={{ color: '#0f766e' }}>MediAI</span> <span style={{ color: '#0d9488' }}>Ghana</span>
         </div>
       )}
     </div>
