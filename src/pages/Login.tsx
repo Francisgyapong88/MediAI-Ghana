@@ -109,7 +109,7 @@ export default function Login() {
         <div style={{ width: '100%', maxWidth: 400 }}>
           <div style={{ marginBottom: 32 }}>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 8 }}>
-              Welcome to MediAI Ghana
+              Welcome to <span style={{ color: '#0d9488' }}>MediAI</span> Ghana
             </h1>
             <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.5 }}>
               Authorised access to the clinical decision-support research prototype.

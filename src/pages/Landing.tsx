@@ -122,7 +122,7 @@ export default function Landing() {
                 <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 500 }}>Not for Clinical Diagnosis or Treatment</span>
               </div>
               <h1 style={{ fontSize: 52, fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: 8, color: '#0a1628' }}>
-                MediAI <span style={{ color: '#0d9488' }}>Ghana</span>
+                <span style={{ color: '#0d9488' }}>MediAI</span>{' '}<span style={{ color: '#0d9488' }}>Ghana</span>
               </h1>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#0d9488', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 20 }}>
                 Non-Diagnostic Clinical Decision-Support Prototype

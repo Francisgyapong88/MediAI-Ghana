@@ -24,7 +24,6 @@ const navSections = [
     items: [
       { to: '/review/status', label: 'System Status', icon: '📡' },
       { to: '/review/account', label: 'Account & Security', icon: '🛡' },
-      { to: '/review/docs', label: 'Documentation', icon: '📖' },
     ],
   },
 ]

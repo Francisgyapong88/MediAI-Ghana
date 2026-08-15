@@ -98,6 +98,7 @@ export default function App() {
               <Route path="symptom-map" element={<SymptomMap />} />
               <Route path="status" element={<SystemStatus />} />
               <Route path="account" element={<AccountSecurity />} />
+              <Route path="evaluation" element={<TechnicalEvaluation />} />
               <Route path="docs" element={<Docs />} />
             </Route>
           </Route>
