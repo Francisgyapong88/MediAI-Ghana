@@ -1,5 +1,6 @@
 {
-  "description": "Easily create a professional website tailored to your needs, empowering businesses and individuals to establish a strong online presence with minimal effort.",
+  "title": "MediAI Ghana",
+  "description": "MediAI Ghana — a prototype AI-assisted symptom-assessment system for a Ghanaian healthcare context.",
   "robots": {
     "index": false
   },
