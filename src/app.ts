@@ -19,7 +19,7 @@ export function createApp() {
   const app = express();
 
   app.use(helmet());
-  app.use(cors({ origin: "http://localhost:8443", credentials: true }));
+  app.use(cors({ origin: "https://medi-ai-ghana.vercel.app", credentials: true }));
   app.use(express.json());
   app.use(cookieParser());
   app.use(morgan("dev"));
