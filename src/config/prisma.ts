@@ -2,7 +2,19 @@
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "../generated/client";
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
+// Parse DATABASE_URL into an explicit config object so we can set ssl.rejectUnauthorized.
+// Aiven uses its own certificate authority, which isn't in Node's default trusted root
+// store, so certificate-chain verification must be relaxed (encryption is still used;
+// only certificate-issuer verification is skipped).
+const dbUrl = new URL(process.env.DATABASE_URL!.replace("mysql://", "http://"));
+const adapter = new PrismaMariaDb({
+  host: dbUrl.hostname,
+  port: Number(dbUrl.port),
+  user: decodeURIComponent(dbUrl.username),
+  password: decodeURIComponent(dbUrl.password),
+  database: dbUrl.pathname.slice(1),
+  ssl: { rejectUnauthorized: false },
+});
 
 // Prevent multiple PrismaClient instances during ts-node-dev hot reloads.
 declare global {
@@ -26,18 +38,13 @@ import mariadb from "mariadb";
 export async function testRawConnection() {
   try {
     const conn = await mariadb.createConnection({
-      ...(() => {
-        const u = new URL(process.env.DATABASE_URL!.replace("mysql://", "mariadb://"));
-        return {
-          host: u.hostname,
-          port: Number(u.port),
-          user: u.username,
-          password: u.password,
-          database: u.pathname.slice(1),
-          ssl: true,
-          connectTimeout: 8000,
-        };
-      })(),
+      host: dbUrl.hostname,
+      port: Number(dbUrl.port),
+      user: decodeURIComponent(dbUrl.username),
+      password: decodeURIComponent(dbUrl.password),
+      database: dbUrl.pathname.slice(1),
+      ssl: { rejectUnauthorized: false },
+      connectTimeout: 8000,
     });
     await conn.end();
     return { success: true };
