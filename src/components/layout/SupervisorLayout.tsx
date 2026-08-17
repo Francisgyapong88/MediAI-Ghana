@@ -69,23 +69,19 @@ export default function SupervisorLayout() {
           ))}
         </div>
 
-        {/* Published publicly by design — opens the same page any reviewer
-            reads, rather than a role-specific copy. */}
+  {/* Opens inline within the review shell, reusing the same public
+            TechnicalEvaluation page component via the /review/evaluation route. */}
         <div style={{ padding: '0 8px 12px' }}>
           <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.25)', padding: '4px 12px', marginBottom: 4, textTransform: 'uppercase' }}>
             PUBLIC RECORD
           </div>
-          <a
-            href="/evaluation"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="sidebar-nav-item"
-            style={{ textDecoration: 'none' }}
+          <NavLink
+            to="/review/evaluation"
+            className={({ isActive }) => `sidebar-nav-item${isActive ? ' active' : ''}`}
           >
-            <span style={{ fontSize: 12 }}>📈</span>
+            <span style={{ fontSize: 12 }}>ðŸ“ˆ</span>
             Technical Evaluation
-            <span style={{ marginLeft: 'auto', fontSize: 10, opacity: 0.4 }}>↗</span>
-          </a>
+          </NavLink>
         </div>
 
         <div style={{ padding: '14px 16px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 10 }}>
