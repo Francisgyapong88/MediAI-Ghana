@@ -1,4 +1,4 @@
-﻿import { NavLink } from 'react-router-dom'
+﻿import { NavLink, useLocation } from 'react-router-dom'
 import { Logo } from '../../components/Logo'
 
 const protocol = [
@@ -56,14 +56,24 @@ const safetyCases = [
 ]
 
 export default function TechnicalEvaluation() {
+  // Only show the public header/Sign-In bar when this page is reached at
+  // its standalone public route. When nested inside an authenticated
+  // shell (e.g. /review/evaluation for the Supervisor/Auditor), that
+  // shell already provides navigation and a signed-in session, so a
+  // second "Sign In" button would be redundant and confusing.
+  const location = useLocation()
+  const isStandalone = location.pathname === '/evaluation'
+
   return (
     <div style={{ background: '#060d1a', minHeight: '100vh', color: 'white' }}>
-      <nav className="nav-public">
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <NavLink to="/" style={{ textDecoration: 'none' }}><Logo size="compact" /></NavLink>
-          <NavLink to="/login"><button className="btn-primary" style={{ padding: '8px 18px', fontSize: 13.5 }}>Sign In</button></NavLink>
-        </div>
-      </nav>
+      {isStandalone && (
+        <nav className="nav-public">
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <NavLink to="/" style={{ textDecoration: 'none' }}><Logo size="compact" /></NavLink>
+            <NavLink to="/login"><button className="btn-primary" style={{ padding: '8px 18px', fontSize: 13.5 }}>Sign In</button></NavLink>
+          </div>
+        </nav>
+      )}
 
       <div style={{ background: 'linear-gradient(135deg, #060d1a, #0a1628)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
@@ -88,9 +98,9 @@ export default function TechnicalEvaluation() {
 
         {/* Standing disclaimer */}
         <div style={{ padding: '16px 20px', background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.2)', borderRadius: 10, marginBottom: 36, display: 'flex', gap: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>âš </span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}>⚠</span>
           <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.6)', lineHeight: 1.65 }}>
-            <strong style={{ color: 'white' }}>Technical Evaluation â€” Not Clinical Validation.</strong> Accuracy, precision, recall, specificity and F1 are machine-learning performance metrics applied to a demonstration dataset. Such results, once available, would not establish clinical accuracy, diagnostic validity, or suitability for clinical deployment.
+            <strong style={{ color: 'white' }}>Technical Evaluation — Not Clinical Validation.</strong> Accuracy, precision, recall, specificity and F1 are machine-learning performance metrics applied to a demonstration dataset. Such results, once available, would not establish clinical accuracy, diagnostic validity, or suitability for clinical deployment.
           </div>
         </div>
 
@@ -106,7 +116,7 @@ export default function TechnicalEvaluation() {
               </div>
               {s.items.map(i => (
                 <div key={i} style={{ display: 'flex', gap: 8, padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.55 }}>
-                  <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>â—</span>
+                  <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>•</span>
                   {i}
                 </div>
               ))}
@@ -129,7 +139,7 @@ export default function TechnicalEvaluation() {
             <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 14 }}>Defined cases. Outcomes are recorded in the project test record.</div>
             {securityCases.map(item => (
               <div key={item} style={{ display: 'flex', gap: 8, padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.55 }}>
-                <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>â—</span>
+                <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>•</span>
                 {item}
               </div>
             ))}
@@ -140,7 +150,7 @@ export default function TechnicalEvaluation() {
             <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 14 }}>Defined cases. Outcomes are recorded in the project test record.</div>
             {safetyCases.map(item => (
               <div key={item} style={{ display: 'flex', gap: 8, padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.55 }}>
-                <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>â—</span>
+                <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>•</span>
                 {item}
               </div>
             ))}
@@ -149,7 +159,7 @@ export default function TechnicalEvaluation() {
       </div>
 
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '24px', textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>
-        MediAI Ghana â€” Technical Evaluation Â· Not Clinical Validation
+        MediAI Ghana — Technical Evaluation · Not Clinical Validation
       </div>
     </div>
   )
