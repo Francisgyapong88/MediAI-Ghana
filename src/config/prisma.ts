@@ -32,29 +32,3 @@ export const prisma =
 if (process.env.NODE_ENV !== "production") {
   global.__prisma = prisma;
 }
-
-// TEMPORARY DIAGNOSTIC - remove after debugging
-import mariadb from "mariadb";
-export async function testRawConnection() {
-  try {
-    const conn = await mariadb.createConnection({
-      host: dbUrl.hostname,
-      port: Number(dbUrl.port),
-      user: decodeURIComponent(dbUrl.username),
-      password: decodeURIComponent(dbUrl.password),
-      database: dbUrl.pathname.slice(1),
-      ssl: { rejectUnauthorized: false },
-      connectTimeout: 8000,
-    });
-    await conn.end();
-    return { success: true };
-  } catch (err: any) {
-    return {
-      success: false,
-      code: err.code,
-      errno: err.errno,
-      message: err.message,
-      sqlState: err.sqlState,
-    };
-  }
-}
