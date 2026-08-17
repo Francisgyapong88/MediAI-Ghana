@@ -39,9 +39,9 @@ export default function ModelInformation() {
 
       {/* Warning */}
       <div style={{ padding: '14px 18px', background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 8, marginBottom: 20, display: 'flex', gap: 10 }}>
-        <span style={{ fontSize: 16, flexShrink: 0 }}>âš </span>
+        <span style={{ fontSize: 16, flexShrink: 0 }}>⚠</span>
         <div style={{ fontSize: 13.5, color: '#92400e', lineHeight: 1.55 }}>
-          <strong>Technical Evaluation â€” Not Clinical Validation.</strong> Technical performance metrics do not establish clinical validity. This model has not been clinically validated and is not suitable for clinical use.
+          <strong>Technical Evaluation — Not Clinical Validation.</strong> Technical performance metrics do not establish clinical validity. This model has not been clinically validated and is not suitable for clinical use.
         </div>
       </div>
 
@@ -58,7 +58,7 @@ export default function ModelInformation() {
           { label: 'Model Name', value: 'MediAI Four-Class Classifier', mono: false },
           { label: 'Intended Runtime', value: 'TensorFlow.js', mono: true },
           { label: 'Inference Location', value: 'Server-side', mono: false },
-          { label: 'Active Version', value: model?.version ?? 'â€”', mono: true },
+          { label: 'Active Version', value: model?.version ?? '—', mono: true },
           { label: 'Number of Labels', value: '4', mono: false },
           { label: 'Dataset', value: 'Externally sourced demonstration data', mono: false },
         ].map(m => (
