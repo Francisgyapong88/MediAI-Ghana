@@ -69,7 +69,7 @@ export default function SupervisorLayout() {
           ))}
         </div>
 
-  {/* Opens inline within the review shell, reusing the same public
+        {/* Opens inline within the review shell, reusing the same public
             TechnicalEvaluation page component via the /review/evaluation route. */}
         <div style={{ padding: '0 8px 12px' }}>
           <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.25)', padding: '4px 12px', marginBottom: 4, textTransform: 'uppercase' }}>
@@ -79,7 +79,7 @@ export default function SupervisorLayout() {
             to="/review/evaluation"
             className={({ isActive }) => `sidebar-nav-item${isActive ? ' active' : ''}`}
           >
-            <span style={{ fontSize: 12 }}>ðŸ“ˆ</span>
+            <span style={{ fontSize: 12 }}>📈</span>
             Technical Evaluation
           </NavLink>
         </div>
