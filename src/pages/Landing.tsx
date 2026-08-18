@@ -1,4 +1,5 @@
-﻿import { NavLink } from 'react-router-dom'
+﻿import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Logo } from '../components/Logo'
 
 const features = [
@@ -88,13 +89,15 @@ const safetyTips = [
 ]
 
 export default function Landing() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <div style={{ background: '#f8fafc', minHeight: '100vh', color: '#0a1628' }}>
       {/* Nav */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #e2e8f0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="px-4 md:px-6" style={{ maxWidth: 1200, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Logo size="compact" />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          <div className="hidden md:flex" style={{ alignItems: 'center', gap: 24 }}>
             {publicLinks.map(l => (
               <NavLink key={l.to} to={l.to} style={{ fontSize: 13.5, color: '#64748b', textDecoration: 'none', fontWeight: 500, transition: 'color 0.15s' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#0a1628')}
@@ -104,37 +107,64 @@ export default function Landing() {
               </NavLink>
             ))}
           </div>
-          <NavLink to="/login">
-            <button className="btn-primary" style={{ padding: '8px 18px', fontSize: 13.5 }}>Sign In</button>
-          </NavLink>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <NavLink to="/login" className="hidden sm:block">
+              <button className="btn-primary" style={{ padding: '8px 18px', fontSize: 13.5 }}>Sign In</button>
+            </NavLink>
+            <button
+              onClick={() => setMenuOpen(v => !v)}
+              className="md:hidden"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 6 }}
+              aria-label="Toggle menu"
+            >
+              <HamburgerIcon />
+            </button>
+          </div>
         </div>
+        {menuOpen && (
+          <div className="md:hidden" style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {publicLinks.map(l => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                onClick={() => setMenuOpen(false)}
+                style={{ fontSize: 14, color: '#374151', textDecoration: 'none', fontWeight: 500, padding: '10px 4px', borderBottom: '1px solid #f1f5f9' }}
+              >
+                {l.label}
+              </NavLink>
+            ))}
+            <NavLink to="/login" onClick={() => setMenuOpen(false)} className="sm:hidden" style={{ marginTop: 8 }}>
+              <button className="btn-primary" style={{ width: '100%', padding: '10px', fontSize: 14, justifyContent: 'center' }}>Sign In</button>
+            </NavLink>
+          </div>
+        )}
       </nav>
 
       {/* Hero */}
-      <section style={{ padding: '80px 24px 60px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #f0fdfa 0%, #ffffff 45%, #f8fafc 100%)' }}>
+      <section className="px-4 md:px-6" style={{ padding: '56px 0 48px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #f0fdfa 0%, #ffffff 45%, #f8fafc 100%)' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 60% 40%, rgba(13,148,136,0.07) 0%, transparent 60%)' }} />
-        <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 40, alignItems: 'center' }}>
             {/* Left */}
             <div>
-              <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <span className="research-badge">Research Prototype</span>
                 <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 500 }}>Not for Clinical Diagnosis or Treatment</span>
               </div>
-              <h1 style={{ fontSize: 52, fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: 8, color: '#0a1628' }}>
+              <h1 className="text-[34px] md:text-[52px]" style={{ fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: 8, color: '#0a1628' }}>
                 <span style={{ color: '#0d9488' }}>MediAI</span>{' '}<span style={{ color: '#0d9488' }}>Ghana</span>
               </h1>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#0d9488', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 20 }}>
                 Non-Diagnostic Clinical Decision-Support Prototype
               </div>
-              <p style={{ fontSize: 20, fontWeight: 400, color: '#475569', lineHeight: 1.55, marginBottom: 16 }}>
+              <p className="text-[17px] md:text-[20px]" style={{ fontWeight: 400, color: '#475569', lineHeight: 1.55, marginBottom: 16 }}>
                 Technical Decision Support.<br />
                 <strong style={{ color: '#0a1628', fontWeight: 700 }}>Human Judgement First.</strong>
               </p>
               <p style={{ fontSize: 14.5, color: '#64748b', lineHeight: 1.7, marginBottom: 36, maxWidth: 480 }}>
                 Structured symptom capture, bounded machine-learning classification and transparent technical evaluation - designed for academic demonstration and responsible AI research.
               </p>
-              <div style={{ display: 'flex', gap: 12 }}>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <NavLink to="/login">
                   <button className="btn-primary" style={{ padding: '13px 28px', fontSize: 15 }}>Sign In</button>
                 </NavLink>
@@ -155,21 +185,21 @@ export default function Landing() {
       </section>
 
       {/* Verified stats strip */}
-      <section style={{ background: '#ffffff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '32px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+      <section className="px-4 md:px-6" style={{ background: '#ffffff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '32px 0' }}>
+        <div className="px-4 md:px-2 grid grid-cols-2 md:grid-cols-4" style={{ maxWidth: 1100, margin: '0 auto', gap: 24 }}>
           {stats.map(s => (
             <div key={s.label} style={{ textAlign: 'center' }}>
-              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 28, fontWeight: 800, color: '#0d9488', marginBottom: 4 }}>{s.value}</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#0a1628', marginBottom: 2 }}>{s.label}</div>
-              <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{s.sub}</div>
+              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 24, fontWeight: 800, color: '#0d9488', marginBottom: 4 }}>{s.value}</div>
+              <div style={{ fontSize: 12.5, fontWeight: 700, color: '#0a1628', marginBottom: 2 }}>{s.label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{s.sub}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Safety Banner */}
-      <section style={{ background: '#fef2f2', borderBottom: '1px solid #fecaca', padding: '20px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
+      <section className="px-4 md:px-6" style={{ background: '#fef2f2', borderBottom: '1px solid #fecaca', padding: '20px 0' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'flex-start', gap: 16 }}>
           <div style={{ width: 4, height: 40, background: '#dc2626', borderRadius: 2, flexShrink: 0 }} />
           <div>
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', color: '#dc2626', textTransform: 'uppercase', marginBottom: 3 }}>
@@ -183,16 +213,16 @@ export default function Landing() {
       </section>
 
       {/* How It Works */}
-      <section style={{ background: '#f8fafc', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+      <section className="px-4 md:px-6" style={{ background: '#f8fafc', padding: '60px 0' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#0d9488', textTransform: 'uppercase', marginBottom: 12 }}>Pipeline</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 12, color: '#0a1628' }}>How It Works</h2>
+            <h2 className="text-[28px] md:text-[36px]" style={{ fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 12, color: '#0a1628' }}>How It Works</h2>
             <p style={{ fontSize: 15, color: '#64748b', maxWidth: 520, margin: '0 auto' }}>
               Four steps, each with an explicit boundary rather than a hidden assumption.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: 20 }}>
             {steps.map(s => (
               <div key={s.n} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 12, padding: '24px 20px' }}>
                 <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, fontWeight: 700, color: 'rgba(13,148,136,0.4)', marginBottom: 14 }}>{s.n}</div>
@@ -205,16 +235,16 @@ export default function Landing() {
       </section>
 
       {/* Features */}
-      <section style={{ background: '#ffffff', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+      <section className="px-4 md:px-6" style={{ background: '#ffffff', padding: '60px 0' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#0d9488', textTransform: 'uppercase', marginBottom: 12 }}>Core Principles</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 12, color: '#0a1628' }}>Designed Around Responsible AI</h2>
+            <h2 className="text-[28px] md:text-[36px]" style={{ fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 12, color: '#0a1628' }}>Designed Around Responsible AI</h2>
             <p style={{ fontSize: 15, color: '#64748b', maxWidth: 520, margin: '0 auto' }}>
               Every design decision in MediAI Ghana reflects the principles of responsible clinical AI development.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: 20 }}>
             {features.map(f => (
               <div key={f.title} style={{
                 background: '#f8fafc',
@@ -236,12 +266,12 @@ export default function Landing() {
       </section>
 
       {/* Conditions */}
-      <section style={{ background: '#f8fafc', padding: '80px 24px', borderTop: '1px solid #e2e8f0' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
+      <section className="px-4 md:px-6" style={{ background: '#f8fafc', padding: '60px 0', borderTop: '1px solid #e2e8f0' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 40, alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#0d9488', textTransform: 'uppercase', marginBottom: 12 }}>Model Scope</div>
-              <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: '#0a1628' }}>Current Model Scope</h2>
+              <h2 className="text-[28px] md:text-[36px]" style={{ fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: '#0a1628' }}>Current Model Scope</h2>
               <p style={{ fontSize: 14.5, color: '#64748b', lineHeight: 1.7, marginBottom: 12 }}>
                 The active machine-learning component operates with exactly <strong style={{ color: '#0a1628' }}>four demonstration labels</strong>. These are bounded technical outputs, not clinical classifications.
               </p>
@@ -252,7 +282,7 @@ export default function Landing() {
                 Other conditions are outside the active model scope. The system will not force an unsupported case into a disease label.
               </p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div className="grid grid-cols-2" style={{ gap: 14 }}>
               {conditions.map(c => (
                 <div key={c.label} style={{
                   background: '#ffffff',
@@ -274,16 +304,16 @@ export default function Landing() {
       </section>
 
       {/* Safety & Responsible Use */}
-      <section style={{ background: '#ffffff', padding: '80px 24px', borderTop: '1px solid #e2e8f0' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+      <section className="px-4 md:px-6" style={{ background: '#ffffff', padding: '60px 0', borderTop: '1px solid #e2e8f0' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#dc2626', textTransform: 'uppercase', marginBottom: 12 }}>Responsible Use</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 12, color: '#0a1628' }}>Safety & Responsible Use</h2>
+            <h2 className="text-[28px] md:text-[36px]" style={{ fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 12, color: '#0a1628' }}>Safety & Responsible Use</h2>
             <p style={{ fontSize: 15, color: '#64748b', maxWidth: 560, margin: '0 auto' }}>
               A short, structured summary of the boundaries this prototype enforces. Full detail is in Limitations and Safety & AI.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 20 }}>
             {safetyTips.map(t => (
               <div key={t.title} style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 12, padding: '24px 20px' }}>
                 <div style={{ marginBottom: 14 }}>{t.icon}</div>
@@ -296,8 +326,8 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer style={{ background: '#ffffff', borderTop: '1px solid #e2e8f0', padding: '32px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <footer className="px-4 md:px-6" style={{ background: '#ffffff', borderTop: '1px solid #e2e8f0', padding: '28px 0' }}>
+        <div className="px-4 md:px-2" style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <Logo size="compact" />
           <div style={{ fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
             MediAI Ghana - Undergraduate Final-Year Project . Non-Diagnostic Research Prototype
@@ -309,6 +339,10 @@ export default function Landing() {
       </footer>
     </div>
   )
+}
+
+function HamburgerIcon() {
+  return <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="#0a1628" strokeWidth="1.6" strokeLinecap="round" /></svg>
 }
 
 function DashboardMockup() {
@@ -334,7 +368,7 @@ function DashboardMockup() {
           <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', marginTop: 1 }}>Technical model outputs from synthetic demonstration records</div>
         </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1, background: 'rgba(255,255,255,0.04)', padding: '1px' }}>
+      <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: 1, background: 'rgba(255,255,255,0.04)', padding: '1px' }}>
         {[
           { label: 'Total Assessments', value: '47', sub: 'Synthetic records' },
           { label: 'Supported Conditions', value: '4', sub: 'Model Labels' },
