@@ -61,9 +61,9 @@ export default function Login() {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100vh', background: '#f8fafc' }}>
+    <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: '100vh', background: '#f8fafc' }}>
       {/* Left panel */}
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '40px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, #f0fdfa 0%, #ffffff 55%, #f8fafc 100%)', borderRight: '1px solid #e2e8f0' }}>
+      <div className="p-6 md:p-10" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, #f0fdfa 0%, #ffffff 55%, #f8fafc 100%)', borderRight: '1px solid #e2e8f0' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, rgba(13,148,136,0.09) 0%, transparent 60%)' }} />
         <div style={{ position: 'relative' }}>
           <NavLink to="/" style={{ textDecoration: 'none' }}>
@@ -71,9 +71,9 @@ export default function Login() {
           </NavLink>
         </div>
 
-        <div style={{ position: 'relative' }}>
+        <div className="py-8 md:py-0" style={{ position: 'relative' }}>
           <div className="research-badge" style={{ marginBottom: 20 }}>Research Prototype</div>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 16 }}>
+          <h2 className="text-[26px] md:text-[36px]" style={{ fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 16 }}>
             Technical Decision Support.<br />
             <span style={{ color: '#0d9488' }}>Human Judgement First.</span>
           </h2>
@@ -82,7 +82,7 @@ export default function Login() {
           </p>
 
           {/* Security indicators */}
-          <div style={{ marginTop: 36, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2" style={{ marginTop: 36, gap: 10 }}>
             {[
               { label: 'HTTP-only Cookies', icon: '🔒' },
               { label: 'SameSite Protection', icon: '🛡' },
@@ -105,7 +105,7 @@ export default function Login() {
       </div>
 
       {/* Right panel */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', padding: '40px' }}>
+      <div className="p-6 md:p-10" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
           <div style={{ marginBottom: 32 }}>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 8 }}>
@@ -207,7 +207,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div style={{ marginTop: 14, display: 'flex', gap: 16, justifyContent: 'center' }}>
+          <div style={{ marginTop: 14, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#16a34a', display: 'inline-block' }} />
               <span style={{ fontSize: 11.5, color: '#6b7280', fontWeight: 500 }}>Secure session</span>
