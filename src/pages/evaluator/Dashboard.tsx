@@ -105,7 +105,7 @@ export default function EvaluatorDashboard() {
       )}
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 20 }}>
+      <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: 14, marginBottom: 20 }}>
         {[
           { label: 'Your Assessments', value: loading ? '...' : String(assessments.length), sub: 'Synthetic records', color: '#0d9488' },
           { label: 'Supported Conditions', value: '4', sub: 'Model labels', color: '#1d4ed8' },
@@ -114,25 +114,25 @@ export default function EvaluatorDashboard() {
         ].map(s => (
           <div key={s.label} className="metric-card">
             <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>{s.label}</div>
-            <div style={{ fontSize: 28, fontWeight: 800, color: '#0a1628', lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
             <div style={{ fontSize: 12, color: s.color, fontWeight: 600 }}>{s.sub}</div>
           </div>
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]" style={{ gap: 20 }}>
         {/* Left column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0 }}>
           {/* New assessment CTA */}
-          <div style={{ background: 'linear-gradient(135deg, #0a1628, #0f2040)', border: '1px solid rgba(13,148,136,0.25)', borderRadius: 12, padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="flex-col sm:flex-row" style={{ background: 'linear-gradient(135deg, #0a1628, #0f2040)', border: '1px solid rgba(13,148,136,0.25)', borderRadius: 12, padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
             <div>
               <div style={{ fontSize: 17, fontWeight: 800, color: 'white', marginBottom: 6 }}>Start a New Assessment</div>
               <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', maxWidth: 360 }}>
                 Create a synthetic demonstration record and run a bounded technical model assessment.
               </div>
             </div>
-            <NavLink to="/app/new-assessment">
-              <button className="btn-primary" style={{ padding: '12px 22px', fontSize: 14, flexShrink: 0 }}>
+            <NavLink to="/app/new-assessment" className="w-full sm:w-auto">
+              <button className="btn-primary w-full sm:w-auto" style={{ padding: '12px 22px', fontSize: 14, justifyContent: 'center' }}>
                 Begin Assessment
               </button>
             </NavLink>
@@ -140,41 +140,43 @@ export default function EvaluatorDashboard() {
 
           {/* Recent Assessments */}
           <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="flex-col sm:flex-row" style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628' }}>Recent Assessments</div>
                 <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>Using terminology: Model Output - Model Score - Synthetic Records</div>
               </div>
               <NavLink to="/app/history" style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>View all</NavLink>
             </div>
-            <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th>Assessment ID</th>
-                  <th>Created</th>
-                  <th>Model Output</th>
-                  <th>Model Score</th>
-                  <th>Model Version</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map(row => (
-                  <tr key={row.id}>
-                    <td>
-                      <NavLink to={`/app/history/${row.id}`} style={{ textDecoration: 'none', color: '#0d9488', fontWeight: 600, fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5 }}>
-                        {row.label}
-                      </NavLink>
-                    </td>
-                    <td style={{ color: '#6b7280' }}>{row.date}</td>
-                    <td style={{ fontWeight: 600 }}>{row.output}</td>
-                    <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, color: row.score !== '-' ? '#0d9488' : '#9ca3af' }}>{row.score}</td>
-                    <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{row.version}</td>
-                    <td>{statusTag(row.status)}</td>
+            <div className="overflow-x-auto">
+              <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse', minWidth: 560 }}>
+                <thead>
+                  <tr>
+                    <th>Assessment ID</th>
+                    <th>Created</th>
+                    <th>Model Output</th>
+                    <th>Model Score</th>
+                    <th>Model Version</th>
+                    <th>Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rows.map(row => (
+                    <tr key={row.id}>
+                      <td>
+                        <NavLink to={`/app/history/${row.id}`} style={{ textDecoration: 'none', color: '#0d9488', fontWeight: 600, fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5 }}>
+                          {row.label}
+                        </NavLink>
+                      </td>
+                      <td style={{ color: '#6b7280' }}>{row.date}</td>
+                      <td style={{ fontWeight: 600 }}>{row.output}</td>
+                      <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, color: row.score !== '-' ? '#0d9488' : '#9ca3af' }}>{row.score}</td>
+                      <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{row.version}</td>
+                      <td>{statusTag(row.status)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             {loading && <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>Loading...</div>}
             {!loading && rows.length === 0 && (
               <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>No assessments recorded yet.</div>
@@ -183,7 +185,7 @@ export default function EvaluatorDashboard() {
         </div>
 
         {/* Right column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0 }}>
           {/* Service reachability */}
           <div className="card">
             <div style={{ fontSize: 14, fontWeight: 700, color: '#0a1628', marginBottom: 4 }}>Service Reachability</div>
