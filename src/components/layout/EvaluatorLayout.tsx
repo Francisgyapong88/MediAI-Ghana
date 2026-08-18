@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { Logo } from '../Logo'
 import { useAuth } from '../../context/AuthContext'
@@ -31,7 +32,6 @@ const navSections = [
     label: 'SYSTEM',
     items: [
       { to: '/app/status', label: 'System Status', icon: <ActivityIcon /> },
-
     ],
   },
 ]
@@ -43,24 +43,43 @@ const ROLE_LABELS: Record<string, string> = {
 
 export default function EvaluatorLayout() {
   const { user } = useAuth()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const initials = (user?.username ?? '?').slice(0, 2).toUpperCase()
 
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#eef2f7', overflow: 'hidden' }}>
-      {/* Sidebar */}
-      <div style={{
-        width: 240,
-        background: '#0a1628',
-        display: 'flex',
-        flexDirection: 'column',
-        flexShrink: 0,
-        height: '100%',
-        overflow: 'hidden',
-      }}>
-        {/* Logo */}
-        <div style={{ padding: '20px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      {/* Mobile backdrop, closes the drawer on tap */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+        />
+      )}
+
+      {/* Sidebar: slide-in drawer on mobile, static column from md breakpoint up */}
+      <div
+        className={`fixed md:static inset-y-0 left-0 z-50 w-60 transform transition-transform duration-200 ease-in-out md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{
+          background: '#0a1628',
+          display: 'flex',
+          flexDirection: 'column',
+          flexShrink: 0,
+          height: '100%',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Logo + mobile close button */}
+        <div style={{ padding: '20px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Logo size="full" />
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: 'rgba(255,255,255,0.6)' }}
+            aria-label="Close menu"
+          >
+            <CloseIcon />
+          </button>
         </div>
 
         {/* Nav */}
@@ -82,6 +101,7 @@ export default function EvaluatorLayout() {
                 <NavLink
                   key={item.to}
                   to={item.to}
+                  onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) => `sidebar-nav-item${isActive ? ' active' : ''}`}
                 >
                   <span style={{ width: 16, flexShrink: 0 }}>{item.icon}</span>
@@ -115,15 +135,15 @@ export default function EvaluatorLayout() {
           }}>
             {initials}
           </div>
-          <div>
-            <div style={{ fontSize: 12.5, fontWeight: 600, color: 'white' }}>{user?.username ?? '—'}</div>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontSize: 12.5, fontWeight: 600, color: 'white', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username ?? '—'}</div>
             <div style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>{ROLE_LABELS[user?.role ?? ''] ?? '—'}</div>
           </div>
         </div>
       </div>
 
       {/* Main */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
         {/* Topbar */}
         <div style={{
           height: 56,
@@ -132,19 +152,29 @@ export default function EvaluatorLayout() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 24px',
+          padding: '0 16px',
           flexShrink: 0,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628' }}>MediAI Ghana</span>
-            <span style={{ color: '#e2e8f0' }}>·</span>
-            <span className="research-badge">Research Prototype</span>
+        }}
+        className="md:px-6"
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="md:hidden"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, flexShrink: 0 }}
+              aria-label="Open menu"
+            >
+              <HamburgerIcon />
+            </button>
+            <span style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628', whiteSpace: 'nowrap' }}>MediAI Ghana</span>
+            <span className="hidden sm:inline" style={{ color: '#e2e8f0' }}>·</span>
+            <span className="research-badge hidden sm:inline-flex">Research Prototype</span>
           </div>
           <SignOutButton />
         </div>
 
         {/* Content */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+        <div className="p-4 md:p-6" style={{ flex: 1, overflowY: 'auto' }}>
           <Outlet />
         </div>
       </div>
@@ -152,6 +182,12 @@ export default function EvaluatorLayout() {
   )
 }
 
+function HamburgerIcon() {
+  return <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="#0a1628" strokeWidth="1.6" strokeLinecap="round" /></svg>
+}
+function CloseIcon() {
+  return <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
+}
 function GridIcon() {
   return <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1" fill="currentColor" /><rect x="8.5" y="1" width="5.5" height="5.5" rx="1" fill="currentColor" /><rect x="1" y="8.5" width="5.5" height="5.5" rx="1" fill="currentColor" /><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1" fill="currentColor" /></svg>
 }
@@ -172,7 +208,4 @@ function ShieldIcon() {
 }
 function ActivityIcon() {
   return <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><polyline points="1,8 4,4 7,10 10,5 14,8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" /></svg>
-}
-function BookIcon() {
-  return <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 2.5A1.5 1.5 0 013.5 1h9a.5.5 0 01.5.5v12a.5.5 0 01-.5.5H3a1 1 0 01-1-1V2.5z" stroke="currentColor" strokeWidth="1.4" /><line x1="5" y1="5" x2="10" y2="5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /><line x1="5" y1="7.5" x2="10" y2="7.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /><line x1="5" y1="10" x2="8" y2="10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
 }
