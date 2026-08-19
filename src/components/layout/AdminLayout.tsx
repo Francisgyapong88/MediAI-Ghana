@@ -116,7 +116,10 @@ export default function AdminLayout() {
             >
               <HamburgerIcon />
             </button>
-            <span style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628', whiteSpace: 'nowrap' }}>MediAI Ghana — Administration</span>
+            <span style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+  <span className="hidden sm:inline">MediAI Ghana — Administration</span>
+  <span className="sm:hidden">MediAI Ghana</span>
+</span>
             <span className="research-badge hidden sm:inline-flex">Research Prototype</span>
           </div>
           <SignOutButton />
