@@ -61,7 +61,7 @@ export default function Limitations() {
       <div style={{ background: 'linear-gradient(135deg, #060d1a, #0a1628)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <div className="research-badge" style={{ marginBottom: 16 }}>Responsible AI</div>
-          <h1 style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>Known Limitations</h1>
+         <h1 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>Known Limitations</h1>
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>
             Transparent acknowledgement of this prototype's technical and clinical limitations. Transparency about limitations is a strength of responsible AI design, not a weakness.
           </p>
