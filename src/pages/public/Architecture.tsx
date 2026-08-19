@@ -14,7 +14,7 @@ export default function Architecture() {
       <div style={{ background: 'linear-gradient(135deg, #060d1a, #0a1628)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <div className="research-badge" style={{ marginBottom: 16 }}>System Architecture</div>
-          <h1 style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>System Architecture</h1>
+          <h1 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>System Architecture</h1>
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>
             Technical architecture of the MediAI Ghana prototype. Model inference is server-side only.
           </p>
@@ -23,7 +23,7 @@ export default function Architecture() {
 
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '48px 24px' }}>
         {/* Architecture diagram */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0, marginBottom: 48 }}>
+        <div className="arch-diagram" style={{ display: 'grid', gap: 0, marginBottom: 48 }}>
           {/* Client side */}
           <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '24px' }}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginBottom: 16 }}>Client — Browser</div>
@@ -36,7 +36,7 @@ export default function Architecture() {
           </div>
 
           {/* Arrow */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 16px', gap: 8 }}>
+          <div className="arch-arrow" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 16px', gap: 8 }}>
             <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', textAlign: 'center', marginBottom: 4 }}>HTTPS</div>
             <div style={{ fontSize: 20, color: '#0d9488' }}>⟷</div>
             <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>Auth Cookie</div>
@@ -52,7 +52,7 @@ export default function Architecture() {
         </div>
 
         {/* Data layer */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 40 }}>
+        <div className="data-grid" style={{ display: 'grid', gap: 20, marginBottom: 40 }}>
           <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '24px' }}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginBottom: 14 }}>Data Layer</div>
             <div style={{ padding: '14px', background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: 10, textAlign: 'center', marginBottom: 10 }}>
@@ -95,6 +95,29 @@ export default function Architecture() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '24px', textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>
         MediAI Ghana — System Architecture · Research Prototype
       </div>
+
+      <style>{`
+        .arch-diagram {
+          grid-template-columns: 1fr auto 1fr;
+        }
+        .data-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+          .arch-diagram {
+            grid-template-columns: 1fr;
+          }
+          .arch-arrow {
+            flex-direction: row;
+            padding: 12px 0 !important;
+            transform: rotate(90deg);
+          }
+          .data-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }
