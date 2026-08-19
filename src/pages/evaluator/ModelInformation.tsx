@@ -53,7 +53,7 @@ export default function ModelInformation() {
       )}
 
       {/* Model cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
+      <div className="metric-grid" style={{ display: 'grid', gap: 14, marginBottom: 24 }}>
         {[
           { label: 'Model Name', value: 'MediAI Four-Class Classifier', mono: false },
           { label: 'Intended Runtime', value: 'TensorFlow.js', mono: true },
@@ -69,7 +69,7 @@ export default function ModelInformation() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+      <div className="info-grid" style={{ display: 'grid', gap: 20 }}>
         {/* Pipeline */}
         <div className="card">
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628', marginBottom: 4 }}>Model Training Pipeline</div>
@@ -97,7 +97,7 @@ export default function ModelInformation() {
               { label: 'Pneumonia', code: 'PNE', idx: 2 },
               { label: 'Diabetes Mellitus', code: 'DIA', idx: 3 },
             ].map(c => (
-              <div key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, marginBottom: 8 }}>
+              <div key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, marginBottom: 8, flexWrap: 'wrap' }}>
                 <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, fontWeight: 700, color: 'white', background: '#0d9488', padding: '2px 6px', borderRadius: 4 }}>Label {c.idx}</div>
                 <div style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628' }}>{c.label}</div>
                 <div style={{ marginLeft: 'auto', fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5, color: '#9ca3af' }}>{c.code}</div>
@@ -133,6 +133,33 @@ export default function ModelInformation() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .metric-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .info-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 900px) {
+          .info-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .metric-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .metric-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }
