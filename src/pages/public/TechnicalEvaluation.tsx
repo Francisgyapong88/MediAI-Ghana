@@ -78,7 +78,7 @@ export default function TechnicalEvaluation() {
       <div style={{ background: 'linear-gradient(135deg, #060d1a, #0a1628)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <div className="research-badge" style={{ marginBottom: 20 }}>Research Prototype</div>
-          <h1 style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>Technical Evaluation</h1>
+          <h1 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>Technical Evaluation</h1>
           <p style={{ fontSize: 15.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, maxWidth: 720 }}>
             The evaluation protocol for the four-label demonstration classifier, and the current status of its results.
           </p>
@@ -105,10 +105,10 @@ export default function TechnicalEvaluation() {
         </div>
 
         {/* Protocol */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 40 }}>
+        <div className="eval-grid" style={{ display: 'grid', gap: 20, marginBottom: 40 }}>
           {protocol.map(s => (
             <div key={s.title} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
                 <div style={{ fontSize: 15.5, fontWeight: 700 }}>{s.title}</div>
                 <span style={{ fontSize: 11, fontWeight: 700, padding: '3px 8px', background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '0.07em' }}>
                   Planned
@@ -133,7 +133,7 @@ export default function TechnicalEvaluation() {
         </div>
 
         {/* Test case registers */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        <div className="eval-grid" style={{ display: 'grid', gap: 20 }}>
           <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '24px' }}>
             <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>Security & Authorisation Cases</div>
             <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 14 }}>Defined cases. Outcomes are recorded in the project test record.</div>
@@ -161,6 +161,18 @@ export default function TechnicalEvaluation() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '24px', textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>
         MediAI Ghana — Technical Evaluation · Not Clinical Validation
       </div>
+
+      <style>{`
+        .eval-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+          .eval-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }
