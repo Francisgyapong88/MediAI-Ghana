@@ -89,7 +89,7 @@ export default function AssessmentHistory() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+      <div className="history-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 4 }}>Assessment History</h1>
           <p style={{ fontSize: 14, color: '#6b7280' }}>Review previously recorded clinical decision-support assessments.</p>
@@ -110,8 +110,8 @@ export default function AssessmentHistory() {
 
       {/* Filters */}
       <div className="card" style={{ marginBottom: 16 }}>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', gap: 6 }}>
+        <div className="filters-row" style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {(['All', 'Completed', 'Insufficient Information', 'Out of Scope'] as FilterType[]).map(f => (
               <button key={f} onClick={() => setFilter(f)} style={{
                 padding: '7px 14px', borderRadius: 6, border: `1px solid ${filter === f ? '#0d9488' : '#e2e8f0'}`,
@@ -123,8 +123,8 @@ export default function AssessmentHistory() {
               </button>
             ))}
           </div>
-          <div style={{ marginLeft: 'auto', minWidth: 220 }}>
-            <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search Assessment ID…" style={{ padding: '8px 12px', fontSize: 13 }} />
+          <div className="search-box" style={{ marginLeft: 'auto', minWidth: 220 }}>
+            <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search Assessment ID…" style={{ padding: '8px 12px', fontSize: 13, width: '100%' }} />
           </div>
         </div>
       </div>
@@ -136,42 +136,44 @@ export default function AssessmentHistory() {
 
       {/* Table */}
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-        <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              <th>Assessment ID</th>
-              <th>Date</th>
-              <th>Model Output</th>
-              <th>Model Score</th>
-              <th>Model Version</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map(row => (
-              <tr key={row.key}>
-                <td>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, fontWeight: 600, color: '#0d9488' }}>{row.id}</span>
-                </td>
-                <td style={{ color: '#6b7280' }}>{row.date}</td>
-                <td style={{ fontWeight: 600 }}>{row.output}</td>
-                <td>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, color: row.score !== '—' ? '#0d9488' : '#9ca3af' }}>{row.score}</span>
-                </td>
-                <td>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{row.version}</span>
-                </td>
-                <td>{statusTag(row.status)}</td>
-                <td>
-                  <NavLink to={`/app/history/${row.key}`} style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>
-                    View →
-                  </NavLink>
-                </td>
+        <div className="table-scroll">
+          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: '#f8fafc' }}>
+                <th>Assessment ID</th>
+                <th>Date</th>
+                <th>Model Output</th>
+                <th>Model Score</th>
+                <th>Model Version</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filtered.map(row => (
+                <tr key={row.key}>
+                  <td>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, fontWeight: 600, color: '#0d9488' }}>{row.id}</span>
+                  </td>
+                  <td style={{ color: '#6b7280' }}>{row.date}</td>
+                  <td style={{ fontWeight: 600 }}>{row.output}</td>
+                  <td>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12.5, color: row.score !== '—' ? '#0d9488' : '#9ca3af' }}>{row.score}</span>
+                  </td>
+                  <td>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{row.version}</span>
+                  </td>
+                  <td>{statusTag(row.status)}</td>
+                  <td>
+                    <NavLink to={`/app/history/${row.key}`} style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>
+                      View →
+                    </NavLink>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {loading && (
           <div style={{ textAlign: 'center', padding: '40px', color: '#9ca3af', fontSize: 14 }}>
             Loading assessment history…
@@ -187,6 +189,36 @@ export default function AssessmentHistory() {
       <div style={{ marginTop: 12, fontSize: 12, color: '#9ca3af', textAlign: 'right' }}>
         Showing {filtered.length} of {rows.length} assessments
       </div>
+
+      <style>{`
+        .table-scroll {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .data-table {
+          min-width: 700px;
+        }
+
+        @media (max-width: 640px) {
+          .history-header {
+            flex-direction: column;
+            align-items: stretch !important;
+            gap: 12px;
+          }
+          .history-header button {
+            width: 100%;
+          }
+          .filters-row {
+            flex-direction: column;
+            align-items: stretch !important;
+          }
+          .search-box {
+            margin-left: 0 !important;
+            width: 100%;
+            min-width: 0 !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
