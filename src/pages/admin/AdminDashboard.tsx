@@ -93,7 +93,7 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
+      <div className="stats-grid" style={{ display: 'grid', gap: 14, marginBottom: 24 }}>
         {stats.map(s => (
           <div key={s.label} className="metric-card">
             <div style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>{s.label}</div>
@@ -103,54 +103,56 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
+      <div className="dash-grid" style={{ display: 'grid', gap: 20 }}>
         {/* Recent audit events */}
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
             <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628' }}>Recent Audit Events</div>
             <NavLink to="/admin/audit" style={{ fontSize: 12.5, color: '#0d9488', textDecoration: 'none', fontWeight: 600 }}>View all →</NavLink>
           </div>
-          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Account</th>
-                <th>Role</th>
-                <th>Action</th>
-                <th>Resource</th>
-                <th>Outcome</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recent.map(e => {
-                const roleName = e.user?.role?.name ?? ''
-                return (
-                  <tr key={e.id}>
-                    <td>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#9ca3af' }}>
-                        {new Date(e.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                    </td>
-                    <td style={{ fontSize: 12.5, color: '#374151', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {e.user?.username ?? '—'}
-                    </td>
-                    <td>
-                      {roleName
-                        ? <span style={{ fontSize: 11.5, padding: '2px 7px', background: roleName === 'ADMIN' ? '#fef3c7' : '#f0f9ff', color: roleName === 'ADMIN' ? '#d97706' : '#0369a1', borderRadius: 4, fontWeight: 600 }}>{ROLE_LABELS[roleName] ?? roleName}</span>
-                        : <span style={{ fontSize: 11.5, color: '#9ca3af' }}>—</span>}
-                    </td>
-                    <td><span className="audit-event-tag">{e.action}</span></td>
-                    <td>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>
-                        {e.resource ? `${e.resource}${e.resourceId ? `:${e.resourceId}` : ''}` : '—'}
-                      </span>
-                    </td>
-                    <td><span className={`tag ${outcomeTag[e.outcome] ?? 'tag-pending'}`} style={{ fontSize: 11 }}>{e.outcome}</span></td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <div className="table-scroll">
+            <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Account</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                  <th>Resource</th>
+                  <th>Outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recent.map(e => {
+                  const roleName = e.user?.role?.name ?? ''
+                  return (
+                    <tr key={e.id}>
+                      <td>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#9ca3af' }}>
+                          {new Date(e.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      </td>
+                      <td style={{ fontSize: 12.5, color: '#374151', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {e.user?.username ?? '—'}
+                      </td>
+                      <td>
+                        {roleName
+                          ? <span style={{ fontSize: 11.5, padding: '2px 7px', background: roleName === 'ADMIN' ? '#fef3c7' : '#f0f9ff', color: roleName === 'ADMIN' ? '#d97706' : '#0369a1', borderRadius: 4, fontWeight: 600 }}>{ROLE_LABELS[roleName] ?? roleName}</span>
+                          : <span style={{ fontSize: 11.5, color: '#9ca3af' }}>—</span>}
+                      </td>
+                      <td><span className="audit-event-tag">{e.action}</span></td>
+                      <td>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>
+                          {e.resource ? `${e.resource}${e.resourceId ? `:${e.resourceId}` : ''}` : '—'}
+                        </span>
+                      </td>
+                      <td><span className={`tag ${outcomeTag[e.outcome] ?? 'tag-pending'}`} style={{ fontSize: 11 }}>{e.outcome}</span></td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
           {loading && <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>Loading…</div>}
           {!loading && recent.length === 0 && (
             <div style={{ textAlign: 'center', padding: '32px', color: '#9ca3af', fontSize: 14 }}>No audit events recorded yet.</div>
@@ -180,6 +182,40 @@ export default function AdminDashboard() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .stats-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .dash-grid {
+          grid-template-columns: 1fr 300px;
+        }
+        .table-scroll {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .data-table {
+          min-width: 620px;
+        }
+
+        @media (max-width: 900px) {
+          .dash-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .stats-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }
