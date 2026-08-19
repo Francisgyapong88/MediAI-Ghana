@@ -63,7 +63,7 @@ export default function Login() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: '100vh', background: '#f8fafc' }}>
       {/* Left panel */}
-      <div className="p-6 md:p-10" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, #f0fdfa 0%, #ffffff 55%, #f8fafc 100%)', borderRight: '1px solid #e2e8f0' }}>
+      <div className="p-6 md:p-10 order-2 md:order-1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, #f0fdfa 0%, #ffffff 55%, #f8fafc 100%)', borderRight: '1px solid #e2e8f0' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, rgba(13,148,136,0.09) 0%, transparent 60%)' }} />
         <div style={{ position: 'relative' }}>
           <NavLink to="/" style={{ textDecoration: 'none' }}>
@@ -105,7 +105,7 @@ export default function Login() {
       </div>
 
       {/* Right panel */}
-      <div className="p-6 md:p-10" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
+      <div className="p-6 md:p-10 order-1 md:order-2" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
           <div style={{ marginBottom: 32 }}>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 8 }}>
