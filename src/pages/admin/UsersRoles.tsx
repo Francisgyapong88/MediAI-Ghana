@@ -110,7 +110,7 @@ export default function UsersRoles() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 4 }}>Users & Roles</h1>
           <p style={{ fontSize: 14, color: '#6b7280' }}>Manage authorised users and role-based access control.</p>
@@ -130,18 +130,18 @@ export default function UsersRoles() {
       {showCreate && (
         <div className="card" style={{ marginBottom: 20 }}>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628', marginBottom: 14 }}>Create Account</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: 12, alignItems: 'end' }}>
+          <div className="create-form" style={{ display: 'grid', gap: 12, alignItems: 'end' }}>
             <div>
               <label style={{ display: 'block', fontSize: 11.5, fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>Username</label>
-              <input type="text" value={newUsername} onChange={e => setNewUsername(e.target.value)} placeholder="evaluator.a" autoComplete="off" />
+              <input type="text" value={newUsername} onChange={e => setNewUsername(e.target.value)} placeholder="evaluator.a" autoComplete="off" style={{ width: '100%' }} />
             </div>
             <div>
               <label style={{ display: 'block', fontSize: 11.5, fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>Initial Password</label>
-              <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="At least 8 characters" autoComplete="new-password" />
+              <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="At least 8 characters" autoComplete="new-password" style={{ width: '100%' }} />
             </div>
             <div>
               <label style={{ display: 'block', fontSize: 11.5, fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>Role</label>
-              <select value={newRole} onChange={e => setNewRole(e.target.value)}>
+              <select value={newRole} onChange={e => setNewRole(e.target.value)} style={{ width: '100%' }}>
                 {Object.keys(ROLE_LABELS).map(r => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
               </select>
             </div>
@@ -166,65 +166,67 @@ export default function UsersRoles() {
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0a1628' }}>Authorised Users</div>
           <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>No public registration. All accounts created by administrators only.</div>
         </div>
-        <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(u => {
-              const roleName = u.role?.name ?? ''
-              return (
-                <tr key={u.id}>
-                  <td>
-                    <div style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628' }}>{u.username}</div>
-                    <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, color: '#9ca3af' }}>USR-{String(u.id).padStart(3, '0')}</div>
-                  </td>
-                  <td>
-                    <select
-                      value={roleName}
-                      disabled={busyId === u.id}
-                      onChange={e => setRole(u.id, e.target.value)}
-                      style={{ fontSize: 12, padding: '4px 8px', color: roleColor[roleName] ?? '#374151', fontWeight: 700, width: 'auto', minWidth: 150 }}
-                    >
-                      {Object.keys(ROLE_LABELS).map(r => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
-                    </select>
-                  </td>
-                  <td>
-                    {u.status === 'ACTIVE'
-                      ? <span className="tag tag-approved">● Active</span>
-                      : <span className="tag tag-outofscope">⊘ {u.status}</span>}
-                  </td>
-                  <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, color: '#6b7280' }}>{fmt(u.createdAt)}</td>
-                  <td>
-                    {u.status === 'ACTIVE' ? (
-                      <button
+        <div className="table-scroll">
+          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(u => {
+                const roleName = u.role?.name ?? ''
+                return (
+                  <tr key={u.id}>
+                    <td>
+                      <div style={{ fontSize: 13.5, fontWeight: 600, color: '#0a1628' }}>{u.username}</div>
+                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, color: '#9ca3af' }}>USR-{String(u.id).padStart(3, '0')}</div>
+                    </td>
+                    <td>
+                      <select
+                        value={roleName}
                         disabled={busyId === u.id}
-                        onClick={() => setStatus(u.id, 'INACTIVE')}
-                        style={{ fontSize: 12, padding: '4px 10px', border: '1px solid #fecaca', borderRadius: 6, background: 'white', cursor: 'pointer', color: '#dc2626', fontWeight: 500 }}
+                        onChange={e => setRole(u.id, e.target.value)}
+                        style={{ fontSize: 12, padding: '4px 8px', color: roleColor[roleName] ?? '#374151', fontWeight: 700, width: 'auto', minWidth: 150 }}
                       >
-                        {busyId === u.id ? '…' : 'Suspend'}
-                      </button>
-                    ) : (
-                      <button
-                        disabled={busyId === u.id}
-                        onClick={() => setStatus(u.id, 'ACTIVE')}
-                        style={{ fontSize: 12, padding: '4px 10px', border: '1px solid #bbf7d0', borderRadius: 6, background: 'white', cursor: 'pointer', color: '#16a34a', fontWeight: 500 }}
-                      >
-                        {busyId === u.id ? '…' : 'Restore'}
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                        {Object.keys(ROLE_LABELS).map(r => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
+                      </select>
+                    </td>
+                    <td>
+                      {u.status === 'ACTIVE'
+                        ? <span className="tag tag-approved">● Active</span>
+                        : <span className="tag tag-outofscope">⊘ {u.status}</span>}
+                    </td>
+                    <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, color: '#6b7280' }}>{fmt(u.createdAt)}</td>
+                    <td>
+                      {u.status === 'ACTIVE' ? (
+                        <button
+                          disabled={busyId === u.id}
+                          onClick={() => setStatus(u.id, 'INACTIVE')}
+                          style={{ fontSize: 12, padding: '4px 10px', border: '1px solid #fecaca', borderRadius: 6, background: 'white', cursor: 'pointer', color: '#dc2626', fontWeight: 500 }}
+                        >
+                          {busyId === u.id ? '…' : 'Suspend'}
+                        </button>
+                      ) : (
+                        <button
+                          disabled={busyId === u.id}
+                          onClick={() => setStatus(u.id, 'ACTIVE')}
+                          style={{ fontSize: 12, padding: '4px 10px', border: '1px solid #bbf7d0', borderRadius: 6, background: 'white', cursor: 'pointer', color: '#16a34a', fontWeight: 500 }}
+                        >
+                          {busyId === u.id ? '…' : 'Restore'}
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
         {loading && <div style={{ textAlign: 'center', padding: '40px', color: '#9ca3af', fontSize: 14 }}>Loading users…</div>}
         {!loading && !error && users.length === 0 && (
           <div style={{ textAlign: 'center', padding: '40px', color: '#9ca3af', fontSize: 14 }}>No accounts found.</div>
@@ -236,7 +238,7 @@ export default function UsersRoles() {
         <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628', marginBottom: 4 }}>Role Permission Matrix</div>
         <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 16 }}>Reference summary of the documented role design. Not read from the server.</div>
 
-        <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
           {(Object.keys(rolePermissions) as (keyof typeof rolePermissions)[]).map(r => (
             <button key={r} onClick={() => setSelectedRole(r)} style={{
               padding: '8px 16px', borderRadius: 6, border: `1px solid ${selectedRole === r ? roleColor[r] : '#e2e8f0'}`,
@@ -249,7 +251,7 @@ export default function UsersRoles() {
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        <div className="permission-grid" style={{ display: 'grid', gap: 20 }}>
           <div>
             <div style={{ fontSize: 12, fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 12 }}>Can</div>
             {rolePermissions[selectedRole].can.map(p => (
@@ -274,6 +276,45 @@ export default function UsersRoles() {
           <strong>Security note:</strong> Role-based access is enforced server-side for every operation. Hiding a button in the UI is not the security mechanism — permissions are verified by the server on every request.
         </div>
       </div>
+
+      <style>{`
+        .create-form {
+          grid-template-columns: 1fr 1fr 1fr auto;
+        }
+        .table-scroll {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .data-table {
+          min-width: 600px;
+        }
+        .permission-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 900px) {
+          .create-form {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .page-header {
+            flex-direction: column;
+            align-items: stretch !important;
+            gap: 12px;
+          }
+          .page-header button {
+            width: 100%;
+          }
+          .create-form {
+            grid-template-columns: 1fr;
+          }
+          .permission-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }
