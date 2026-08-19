@@ -55,17 +55,17 @@ export default function SystemStatus() {
         <p style={{ fontSize: 14, color: '#6b7280' }}>Reachability probes issued from this browser session. Not a server-side monitoring system.</p>
       </div>
 
-      <div style={{
-        display: 'flex', alignItems: 'center', gap: 10, padding: '14px 18px',
+      <div className="status-bar" style={{
+        display: 'flex', alignItems: 'center', gap: 10, padding: '14px 18px', flexWrap: 'wrap',
         background: anyFailed ? '#fef2f2' : allOk ? '#f0fdf4' : '#f8fafc',
         border: `1px solid ${anyFailed ? '#fecaca' : allOk ? '#bbf7d0' : '#e2e8f0'}`,
         borderRadius: 10, marginBottom: 20,
       }}>
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: anyFailed ? '#dc2626' : allOk ? '#16a34a' : '#9ca3af', display: 'inline-block' }} />
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: anyFailed ? '#dc2626' : allOk ? '#16a34a' : '#9ca3af', display: 'inline-block', flexShrink: 0 }} />
         <span style={{ fontSize: 15, fontWeight: 700, color: anyFailed ? '#b91c1c' : allOk ? '#15803d' : '#6b7280' }}>
           {anyFailed ? 'One or more probes failed' : allOk ? 'All probes reachable' : 'Running probes…'}
         </span>
-        <span style={{ marginLeft: 'auto', fontSize: 12, color: '#6b7280' }}>
+        <span className="status-time" style={{ marginLeft: 'auto', fontSize: 12, color: '#6b7280' }}>
           {checkedAt ? `Last checked: ${checkedAt.toLocaleString('en-GB')}` : '—'}
         </span>
         <button
@@ -77,7 +77,7 @@ export default function SystemStatus() {
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
+      <div className="probe-grid" style={{ display: 'grid', gap: 14, marginBottom: 24 }}>
         {probes.map(p => (
           <div key={p.name} className="metric-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
@@ -97,7 +97,7 @@ export default function SystemStatus() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+      <div className="info-grid" style={{ display: 'grid', gap: 20 }}>
         <div className="card">
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0a1628', marginBottom: 4 }}>Measurement Scope</div>
           <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 14 }}>What these numbers do and do not represent.</div>
@@ -108,7 +108,7 @@ export default function SystemStatus() {
             { label: 'Sample size', value: 'One request per probe' },
             { label: 'Environment', value: 'Local development only' },
           ].map(m => (
-            <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
+            <div key={m.label} className="kv-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
               <span style={{ fontSize: 13.5, color: '#374151', flexShrink: 0 }}>{m.label}</span>
               <span style={{ fontSize: 12.5, color: '#6b7280', textAlign: 'right' }}>{m.value}</span>
             </div>
@@ -125,7 +125,7 @@ export default function SystemStatus() {
             { scenario: 'Session expiry', behaviour: 'Redirect to sign-in with a reason' },
           ].map(f => (
             <div key={f.scenario} style={{ padding: '12px 0', borderBottom: '1px solid #f1f5f9' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, gap: 10 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, gap: 10, flexWrap: 'wrap' }}>
                 <span style={{ fontSize: 13.5, fontWeight: 600, color: '#374151' }}>{f.scenario}</span>
                 <span className="tag tag-pending" style={{ flexShrink: 0 }}>Not recorded here</span>
               </div>
@@ -134,6 +134,51 @@ export default function SystemStatus() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .probe-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .info-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 900px) {
+          .info-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .probe-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .probe-grid {
+            grid-template-columns: 1fr;
+          }
+          .status-bar {
+            flex-direction: column;
+            align-items: flex-start !important;
+          }
+          .status-time {
+            margin-left: 0 !important;
+          }
+          .status-bar button {
+            width: 100%;
+          }
+          .kv-row {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 4px !important;
+          }
+          .kv-row span:last-child {
+            text-align: left !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
