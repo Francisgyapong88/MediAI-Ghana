@@ -176,8 +176,8 @@ export default function NewAssessment() {
       </div>
 
       {/* Progress */}
-      <div className="card" style={{ marginBottom: 20 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+      <div className="card" style={{ marginBottom: 20, overflowX: 'auto' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 0, minWidth: 560 }}>
           {steps.map((s, i) => (
             <div key={s} style={{ display: 'flex', alignItems: 'center', flex: i < steps.length - 1 ? 1 : 'none' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: i < step ? 'pointer' : 'default' }} onClick={() => { if (i < step) setStep(i) }}>
@@ -203,7 +203,7 @@ export default function NewAssessment() {
 
       {/* Step 0 — Synthetic Record */}
       {step === 0 && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px]" style={{ gap: 20 }}>
           <div className="card">
             <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', marginBottom: 24, padding: '14px 16px', background: '#fef3c7', border: '1px solid #fde68a', borderRadius: 8 }}>
               <span style={{ fontSize: 18, flexShrink: 0 }}>⚠</span>
@@ -215,7 +215,7 @@ export default function NewAssessment() {
 
             <h3 style={{ fontSize: 17, fontWeight: 700, color: '#0a1628', marginBottom: 20 }}>Create Synthetic Demonstration Record</h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 16 }}>
               <div>
                 <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b7280', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Assessment ID</label>
                 <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 14, fontWeight: 600, color: '#0d9488', padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8 }}>{assessmentId}</div>
@@ -223,7 +223,7 @@ export default function NewAssessment() {
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b7280', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Technical Record ID</label>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, fontWeight: 600, color: '#0d9488', padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8 }}>{recordId}</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, fontWeight: 600, color: '#0d9488', padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, overflowX: 'auto', whiteSpace: 'nowrap' }}>{recordId}</div>
                 <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 4 }}>Assigned by server on submission</div>
               </div>
               <div>
@@ -260,7 +260,7 @@ export default function NewAssessment() {
               <div style={{ gridColumn: '1/-1', marginTop: 4 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>Selected Vital Signs (Synthetic, Optional)</div>
                 <div style={{ fontSize: 11.5, color: '#9ca3af', marginBottom: 10 }}>Recorded with the assessment. Not used by the classifier in the current scope.</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: 12 }}>
                   <div>
                     <label style={{ display: 'block', fontSize: 11.5, fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>Temperature (°C)</label>
                     <input type="number" step="0.1" min="30" max="45" value={temperatureC} onChange={e => setTemperatureC(e.target.value)} placeholder="e.g. 38.4" />
@@ -287,7 +287,7 @@ export default function NewAssessment() {
             </div>
 
             <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
-              <button className="btn-primary" disabled={!confirmed || !ageGroup || !sex} style={{ opacity: confirmed && ageGroup && sex ? 1 : 0.4 }} onClick={() => setStep(1)}>
+              <button className="btn-primary w-full sm:w-auid" disabled={!confirmed || !ageGroup || !sex} style={{ opacity: confirmed && ageGroup && sex ? 1 : 0.4, justifyContent: 'center' }} onClick={() => setStep(1)}>
                 Continue to Symptoms →
               </button>
             </div>
@@ -316,8 +316,8 @@ export default function NewAssessment() {
 
       {/* Step 1 — Symptoms */}
       {step === 1 && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]" style={{ gap: 20 }}>
+          <div style={{ minWidth: 0 }}>
             <div className="card" style={{ marginBottom: 16 }}>
               {vocabLoading && (
                 <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 12 }}>Loading symptom vocabulary…</div>
@@ -335,12 +335,12 @@ export default function NewAssessment() {
               {/* Search + category filter */}
               <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
                 <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search symptoms…" style={{ flex: 1, minWidth: 180 }} />
-                <div style={{ display: 'flex', gap: 6 }}>
-                  <button onClick={() => setActiveCategory(null)} style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 12, fontWeight: 600, background: !activeCategory ? '#0a1628' : 'white', color: !activeCategory ? 'white' : '#374151', cursor: 'pointer' }}>
+                <div className="overflow-x-auto" style={{ display: 'flex', gap: 6, maxWidth: '100%' }}>
+                  <button onClick={() => setActiveCategory(null)} style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 12, fontWeight: 600, background: !activeCategory ? '#0a1628' : 'white', color: !activeCategory ? 'white' : '#374151', cursor: 'pointer', flexShrink: 0 }}>
                     All
                   </button>
                   {categories.map(cat => (
-                    <button key={cat} onClick={() => setActiveCategory(activeCategory === cat ? null : cat)} style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 12, fontWeight: 600, background: activeCategory === cat ? '#0d9488' : 'white', color: activeCategory === cat ? 'white' : '#374151', cursor: 'pointer' }}>
+                    <button key={cat} onClick={() => setActiveCategory(activeCategory === cat ? null : cat)} style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 12, fontWeight: 600, background: activeCategory === cat ? '#0d9488' : 'white', color: activeCategory === cat ? 'white' : '#374151', cursor: 'pointer', flexShrink: 0 }}>
                       {cat}
                     </button>
                   ))}
@@ -349,7 +349,7 @@ export default function NewAssessment() {
 
               {/* Symptom grid */}
               <div style={{ fontSize: 12, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 10 }}>Supported Application Symptoms</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 8 }}>
                 {filteredSymptoms.map(s => (
                   <label key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', border: `1px solid ${selectedSymptoms.includes(s.id) ? '#0d9488' : '#e2e8f0'}`, borderRadius: 8, cursor: 'pointer', background: selectedSymptoms.includes(s.id) ? '#f0fdf9' : 'white', transition: 'all 0.15s' }}>
                     <input type="checkbox" className="checkbox-custom" checked={selectedSymptoms.includes(s.id)} onChange={() => toggleSymptom(s.id)} />
@@ -457,8 +457,8 @@ export default function NewAssessment() {
 
       {/* Step 2 — Review */}
       {step === 2 && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]" style={{ gap: 20 }}>
+          <div style={{ minWidth: 0 }}>
             <div className="card" style={{ marginBottom: 16 }}>
               <h3 style={{ fontSize: 17, fontWeight: 700, color: '#0a1628', marginBottom: 20 }}>Review Assessment</h3>
 
@@ -469,7 +469,7 @@ export default function NewAssessment() {
                 </div>
               )}
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 16, marginBottom: 20 }}>
                 <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>Assessment ID</div>
                   <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 15, fontWeight: 700, color: '#0d9488' }}>{assessmentId}</div>
@@ -501,7 +501,7 @@ export default function NewAssessment() {
                 </div>
               )}
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 14, marginBottom: 20 }}>
                 <div style={{ padding: '12px 14px', background: '#f0fdf9', border: '1px solid #bbf7d0', borderRadius: 8 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>Model Version</div>
                   <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 14, fontWeight: 700, color: '#0d9488' }}>Assigned at inference</div>
@@ -566,7 +566,7 @@ export default function NewAssessment() {
               ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 12 }}>
               <div style={{ padding: '10px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>Inference</div>
                 <div style={{ fontSize: 13.5, fontWeight: 700, color: '#0a1628' }}>Server-side</div>
@@ -582,10 +582,10 @@ export default function NewAssessment() {
 
       {/* Step 4 — Result */}
       {step === 4 && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20 }}>
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px]" style={{ gap: 20 }}>
+          <div style={{ minWidth: 0 }}>
             <div className="card" style={{ marginBottom: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+              <div className="flex-col sm:flex-row" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10, marginBottom: 24 }}>
                 <h3 style={{ fontSize: 20, fontWeight: 800, color: '#0a1628', margin: 0 }}>
                   {abstained ? 'No Technical Result Reported' : 'Technical Assessment Result'}
                 </h3>
@@ -596,7 +596,7 @@ export default function NewAssessment() {
               {abstained ? (
                 <div style={{ padding: '28px', background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: 12, marginBottom: 20, textAlign: 'center' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: '#64748b', textTransform: 'uppercase', marginBottom: 12 }}>Model Output Withheld</div>
-                  <div style={{ fontSize: 30, fontWeight: 800, color: '#334155', letterSpacing: '-0.02em', marginBottom: 16 }}>
+                  <div className="text-[24px] sm:text-[30px]" style={{ fontWeight: 800, color: '#334155', letterSpacing: '-0.02em', marginBottom: 16 }}>
                     {result?.status === 'OUT_OF_SCOPE' ? 'Out of Scope' : 'Insufficient Information'}
                   </div>
                   <div style={{ height: 1, background: '#e2e8f0', marginBottom: 16 }} />
@@ -607,7 +607,7 @@ export default function NewAssessment() {
               ) : (
                 <div style={{ padding: '28px', background: 'linear-gradient(135deg, #0a1628, #0f2040)', border: '1px solid rgba(13,148,136,0.3)', borderRadius: 12, marginBottom: 20, textAlign: 'center' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginBottom: 12 }}>Model Output</div>
-                  <div style={{ fontSize: 42, fontWeight: 900, color: 'white', letterSpacing: '-0.02em', marginBottom: 16 }}>
+                  <div className="text-[32px] sm:text-[42px]" style={{ fontWeight: 900, color: 'white', letterSpacing: '-0.02em', marginBottom: 16 }}>
                     {result?.results[0] ? result.results[0].label.replace(/\b\w/g, c => c.toUpperCase()) : '—'}
                   </div>
                   <div style={{ height: 1, background: 'rgba(255,255,255,0.08)', marginBottom: 16 }} />
@@ -626,7 +626,7 @@ export default function NewAssessment() {
               </div>
 
               {/* Metadata */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 20 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: 10, marginBottom: 20 }}>
                 {[
                   { label: 'Assessment ID', value: assessmentId },
                   { label: 'Model', value: `MediAI Classifier ${result?.modelVersion ?? ''}` },
@@ -635,14 +635,14 @@ export default function NewAssessment() {
                   { label: 'Inference', value: 'Server-side' },
                   { label: 'Session Status', value: result?.status ?? '—' },
                 ].map(m => (
-                  <div key={m.label} style={{ padding: '10px 12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8 }}>
+                  <div key={m.label} style={{ padding: '10px 12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, minWidth: 0 }}>
                     <div style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 4 }}>{m.label}</div>
-                    <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, fontWeight: 600, color: '#374151' }}>{m.value}</div>
+                    <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, fontWeight: 600, color: '#374151', overflowWrap: 'break-word' }}>{m.value}</div>
                   </div>
                 ))}
               </div>
 
-              <div style={{ display: 'flex', gap: 10 }}>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <button className="btn-secondary" onClick={resetForm}>New Assessment</button>
                 <button className="btn-primary" onClick={() => navigate('/app/history')}>View Assessment History</button>
               </div>
