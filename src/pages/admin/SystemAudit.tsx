@@ -72,7 +72,7 @@ export default function SystemAudit() {
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: 12, marginBottom: 20, alignItems: 'center' }}>
+      <div className="audit-controls" style={{ display: 'flex', gap: 12, marginBottom: 20, alignItems: 'center', flexWrap: 'wrap' }}>
         <div style={{ padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, fontSize: 12.5, color: '#16a34a', fontWeight: 600 }}>
           {logs.length} most recent events
         </div>
@@ -81,48 +81,50 @@ export default function SystemAudit() {
             {deniedCount} denied {deniedCount === 1 ? 'event' : 'events'}
           </div>
         )}
-        <div style={{ marginLeft: 'auto' }}>
+        <div className="audit-search" style={{ marginLeft: 'auto' }}>
           <input type="text" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Filter by account, action…" style={{ width: 240 }} />
         </div>
       </div>
 
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-        <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              <th>Timestamp</th>
-              <th>Account</th>
-              <th>Role</th>
-              <th>Action</th>
-              <th>Resource</th>
-              <th>Outcome</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map(e => (
-              <tr key={e.id}>
-                <td><span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#9ca3af' }}>{fmt(e.timestamp)}</span></td>
-                <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#374151' }}>{e.user?.username ?? '—'}</td>
-                <td>
-                  {e.user?.role
-                    ? <span style={{ fontSize: 11, padding: '2px 6px', background: '#f1f5f9', color: '#475569', borderRadius: 3, fontWeight: 600 }}>{ROLE_LABELS[e.user.role.name] ?? e.user.role.name}</span>
-                    : <span style={{ fontSize: 11, color: '#9ca3af' }}>—</span>}
-                </td>
-                <td><span className="audit-event-tag">{e.action}</span></td>
-                <td>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, color: '#6b7280' }}>
-                    {e.resource ? `${e.resource}${e.resourceId ? `:${e.resourceId}` : ''}` : '—'}
-                  </span>
-                </td>
-                <td>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: outcomeColor[e.outcome] ?? '#6b7280' }}>
-                    {e.outcome}
-                  </span>
-                </td>
+        <div className="table-scroll">
+          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: '#f8fafc' }}>
+                <th>Timestamp</th>
+                <th>Account</th>
+                <th>Role</th>
+                <th>Action</th>
+                <th>Resource</th>
+                <th>Outcome</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filtered.map(e => (
+                <tr key={e.id}>
+                  <td><span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#9ca3af' }}>{fmt(e.timestamp)}</span></td>
+                  <td style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#374151' }}>{e.user?.username ?? '—'}</td>
+                  <td>
+                    {e.user?.role
+                      ? <span style={{ fontSize: 11, padding: '2px 6px', background: '#f1f5f9', color: '#475569', borderRadius: 3, fontWeight: 600 }}>{ROLE_LABELS[e.user.role.name] ?? e.user.role.name}</span>
+                      : <span style={{ fontSize: 11, color: '#9ca3af' }}>—</span>}
+                  </td>
+                  <td><span className="audit-event-tag">{e.action}</span></td>
+                  <td>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11.5, color: '#6b7280' }}>
+                      {e.resource ? `${e.resource}${e.resourceId ? `:${e.resourceId}` : ''}` : '—'}
+                    </span>
+                  </td>
+                  <td>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: outcomeColor[e.outcome] ?? '#6b7280' }}>
+                      {e.outcome}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {loading && (
           <div style={{ textAlign: 'center', padding: '40px', color: '#9ca3af', fontSize: 14 }}>Loading audit log…</div>
         )}
@@ -136,6 +138,26 @@ export default function SystemAudit() {
       <div style={{ marginTop: 12, fontSize: 12, color: '#9ca3af', textAlign: 'right' }}>
         Showing {filtered.length} of {logs.length} · most recent 100 events
       </div>
+
+      <style>{`
+        .table-scroll {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .data-table {
+          min-width: 640px;
+        }
+
+        @media (max-width: 640px) {
+          .audit-search {
+            margin-left: 0 !important;
+            width: 100%;
+          }
+          .audit-search input {
+            width: 100% !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
