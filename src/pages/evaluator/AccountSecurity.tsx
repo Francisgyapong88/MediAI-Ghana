@@ -41,7 +41,7 @@ export default function AccountSecurity() {
         <p style={{ fontSize: 14, color: '#6b7280' }}>Your account details and session security.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+      <div className="grid-2col" style={{ display: 'grid', gap: 20 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Account info */}
           <div className="card">
@@ -52,9 +52,9 @@ export default function AccountSecurity() {
               { label: 'Role', value: ROLE_LABELS[roleName] ?? '—', mono: false },
               { label: 'Session', value: user ? 'Signed in' : 'Not signed in', mono: false, color: user ? '#16a34a' : '#dc2626' },
             ].map(m => (
-              <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}>
-                <span style={{ fontSize: 13.5, color: '#6b7280', fontWeight: 500 }}>{m.label}</span>
-                <span style={{ fontFamily: m.mono ? "'JetBrains Mono', monospace" : 'inherit', fontSize: m.mono ? 12.5 : 13.5, fontWeight: 600, color: m.color || '#0a1628' }}>{m.value}</span>
+              <div key={m.label} className="kv-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
+                <span style={{ fontSize: 13.5, color: '#6b7280', fontWeight: 500, flexShrink: 0 }}>{m.label}</span>
+                <span style={{ fontFamily: m.mono ? "'JetBrains Mono', monospace" : 'inherit', fontSize: m.mono ? 12.5 : 13.5, fontWeight: 600, color: m.color || '#0a1628', textAlign: 'right', wordBreak: 'break-word' }}>{m.value}</span>
               </div>
             ))}
           </div>
@@ -83,7 +83,7 @@ export default function AccountSecurity() {
               { label: 'Server-side Revocation', value: 'On sign out' },
               { label: 'Password Storage', value: 'bcrypt hash' },
             ].map(m => (
-              <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
+              <div key={m.label} className="kv-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
                 <span style={{ fontSize: 13, color: '#6b7280', fontWeight: 500, flexShrink: 0 }}>{m.label}</span>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#0a1628', textAlign: 'right' }}>{m.value}</span>
               </div>
@@ -112,6 +112,29 @@ export default function AccountSecurity() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .grid-2col {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 900px) {
+          .grid-2col {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .kv-row {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 4px !important;
+          }
+          .kv-row span:last-child {
+            text-align: left !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
