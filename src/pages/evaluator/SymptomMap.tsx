@@ -31,7 +31,7 @@ export default function SymptomMap() {
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div className="map-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0a1628', letterSpacing: '-0.02em', marginBottom: 4 }}>Symptom Map</h1>
             <p style={{ fontSize: 14, color: '#6b7280' }}>Application terms in the active version, as held by the server.</p>
@@ -52,7 +52,7 @@ export default function SymptomMap() {
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
         <div style={{ padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, fontSize: 12.5, color: '#16a34a', fontWeight: 600 }}>
           {loading ? '…' : enabled} enabled
         </div>
@@ -62,33 +62,35 @@ export default function SymptomMap() {
       </div>
 
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-        <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              <th>Application Term</th>
-              <th>Display Label</th>
-              <th>Category</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {vocab.map(s => {
-              const d = display(s.name)
-              return (
-                <tr key={s.id}>
-                  <td><span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{s.name}</span></td>
-                  <td style={{ fontWeight: 600 }}>{d.label}</td>
-                  <td style={{ color: '#6b7280' }}>{d.category}</td>
-                  <td>
-                    {s.isEnabled
-                      ? <span className="tag tag-approved">● Enabled</span>
-                      : <span className="tag tag-disabled">— Disabled</span>}
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <div className="table-scroll">
+          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: '#f8fafc' }}>
+                <th>Application Term</th>
+                <th>Display Label</th>
+                <th>Category</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {vocab.map(s => {
+                const d = display(s.name)
+                return (
+                  <tr key={s.id}>
+                    <td><span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#6b7280' }}>{s.name}</span></td>
+                    <td style={{ fontWeight: 600 }}>{d.label}</td>
+                    <td style={{ color: '#6b7280' }}>{d.category}</td>
+                    <td>
+                      {s.isEnabled
+                        ? <span className="tag tag-approved">● Enabled</span>
+                        : <span className="tag tag-disabled">— Disabled</span>}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
         {loading && <div style={{ textAlign: 'center', padding: '40px', color: '#9ca3af', fontSize: 14 }}>Loading symptom map…</div>}
         {!loading && !error && vocab.length === 0 && (
           <div style={{ textAlign: 'center', padding: '40px', color: '#9ca3af', fontSize: 14 }}>No terms in the active map.</div>
@@ -98,6 +100,27 @@ export default function SymptomMap() {
       <div style={{ marginTop: 12, fontSize: 12, color: '#9ca3af', lineHeight: 1.6 }}>
         Only enabled terms may be selected in a technical assessment, and the server rejects any other term. Source feature, transformation, rationale, author, reviewer and review date are recorded in the versioned symptom-map document; they are not stored in the application database and are therefore not shown here.
       </div>
+
+      <style>{`
+        .table-scroll {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .data-table {
+          min-width: 560px;
+        }
+
+        @media (max-width: 640px) {
+          .map-header {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 10px;
+          }
+          .map-header > div:last-child {
+            text-align: left !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
