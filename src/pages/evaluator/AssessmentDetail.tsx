@@ -86,7 +86,7 @@ export default function AssessmentDetail() {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
         <NavLink to="/app/history" style={{ fontSize: 13.5, color: '#6b7280', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}>
           ← Back to History
         </NavLink>
@@ -98,12 +98,12 @@ export default function AssessmentDetail() {
         {!session && <span className="tag tag-pending">No session</span>}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
+      <div className="detail-grid" style={{ display: 'grid', gap: 20 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Overview */}
           <div className="card">
             <div style={{ fontSize: 16, fontWeight: 700, color: '#0a1628', marginBottom: 16 }}>Assessment Overview</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+            <div className="overview-grid" style={{ display: 'grid', gap: 12 }}>
               {[
                 { label: 'Assessment ID', value: displayId, mono: true },
                 { label: 'Record Type', value: data.visit.patient.isSynthetic ? 'Synthetic Demo Record' : 'Non-synthetic', mono: false },
@@ -145,11 +145,11 @@ export default function AssessmentDetail() {
           {/* Model Output */}
           {session && !abstained && (
             <div className="card" style={{ background: 'linear-gradient(135deg, #0a1628, #0f2040)', border: '1px solid rgba(13,148,136,0.3)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16, flexWrap: 'wrap', gap: 10 }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Model Output</div>
                 <span className="not-diagnosis-badge">Not a Diagnosis</span>
               </div>
-              <div style={{ fontSize: 36, fontWeight: 900, color: 'white', letterSpacing: '-0.02em', marginBottom: 10 }}>
+              <div style={{ fontSize: 'clamp(26px, 6vw, 36px)', fontWeight: 900, color: 'white', letterSpacing: '-0.02em', marginBottom: 10 }}>
                 {top ? titleCase(top.disease.name) : '—'}
               </div>
               <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>Model Score</div>
@@ -204,6 +204,33 @@ export default function AssessmentDetail() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .detail-grid {
+          grid-template-columns: 1fr 300px;
+        }
+        .overview-grid {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        @media (max-width: 900px) {
+          .detail-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .overview-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .overview-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }
