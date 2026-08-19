@@ -65,7 +65,7 @@ export default function TechnicalEvaluation() {
   const isStandalone = location.pathname === '/evaluation'
 
   return (
-    <div style={{ background: '#060d1a', minHeight: '100vh', color: 'white' }}>
+    <div style={{ background: '#060d1a', minHeight: isStandalone ? '100vh' : '100%', color: 'white', borderRadius: isStandalone ? 0 : 12, overflow: 'hidden' }}>
       {isStandalone && (
         <nav className="nav-public">
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -75,7 +75,7 @@ export default function TechnicalEvaluation() {
         </nav>
       )}
 
-      <div style={{ background: 'linear-gradient(135deg, #060d1a, #0a1628)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '60px 24px' }}>
+      <div style={{ background: 'linear-gradient(135deg, #060d1a, #0a1628)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: isStandalone ? '60px 24px' : '32px 24px' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <div className="research-badge" style={{ marginBottom: 20 }}>Research Prototype</div>
           <h1 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>Technical Evaluation</h1>
@@ -85,7 +85,7 @@ export default function TechnicalEvaluation() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '48px 24px' }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', padding: isStandalone ? '48px 24px' : '32px 24px' }}>
         {/* Results-pending notice */}
         <div style={{ padding: '20px 24px', background: 'rgba(234,179,8,0.08)', border: '1px solid rgba(234,179,8,0.3)', borderRadius: 12, marginBottom: 24 }}>
           <div style={{ fontSize: 12, fontWeight: 800, color: '#eab308', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
