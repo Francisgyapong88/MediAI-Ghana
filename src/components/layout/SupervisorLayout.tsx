@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import { Logo } from '../Logo'
 import { useAuth } from '../../context/AuthContext'
+import SignOutButton from '../SignOutButton'
 
 // Every entry here is read-only. The supervisor/auditor permission set
 // contains no mutations (FR-10), so no nav item leads to a write action.
@@ -30,16 +31,10 @@ const navSections = [
 ]
 
 export default function SupervisorLayout() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
+  const { user } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const initials = (user?.username ?? '?').slice(0, 2).toUpperCase()
-
-  const handleSignOut = async () => {
-    await logout()
-    navigate('/login', { replace: true })
-  }
 
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#eef2f7', overflow: 'hidden' }}>
@@ -143,9 +138,7 @@ export default function SupervisorLayout() {
             <span className="hidden sm:inline" style={{ fontSize: 11, fontWeight: 700, color: '#7c3aed', background: '#f5f3ff', border: '1px solid #ddd6fe', padding: '3px 9px', borderRadius: 5, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Read-only access
             </span>
-            <button onClick={handleSignOut} style={{ fontSize: 12.5, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500, padding: 0 }}>
-              Sign Out
-            </button>
+            <SignOutButton />
           </div>
         </div>
         <div className="p-4 md:p-6" style={{ flex: 1, overflowY: 'auto' }}>
